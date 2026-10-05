@@ -1,0 +1,168 @@
+
+<div class="sidebar-overlay" [class.open]="isOpen" (click)="closeSidebar()">
+  <div class="sidebar-container" (click)="$event.stopPropagation()">
+
+    <!-- Top Header -->
+    <div class="sidebar-header">
+      <div class="contact-title-group">
+        <span class="icon-phone">
+          <img src="/assets/images/arrows/phone-call.png" alt="Phone" />
+        </span>
+        <h2>Contact Details</h2>
+      </div>
+
+      <button type="button" class="use-location-btn" (click)="fetchLocation()">
+        <span class="location-target-icon">◎</span>
+        Use My Location
+      </button>
+    </div>
+
+    <!-- Form Content Body -->
+    <div class="sidebar-body">
+
+      <!-- Contact Details Group -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="addressData.name"
+          placeholder="Name"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="tel"
+          [(ngModel)]="addressData.contactNumber"
+          placeholder="Contact Number"
+          class="form-input"
+        />
+      </div>
+
+      <!-- Address Section Header -->
+      <div class="section-title-group">
+        <span class="icon-location">
+          <img src="/assets/images/arrows/location.png" alt="Location" />
+        </span>
+        <h2>Address</h2>
+      </div>
+
+      <!-- Address Inputs -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="addressData.houseNo"
+          placeholder="House no./ Building name"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="addressData.roadName"
+          placeholder="Road name / Area / Colony"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="addressData.pincode"
+          placeholder="Pincode"
+          class="form-input"
+        />
+      </div>
+
+      <!-- City and State -->
+      <div class="form-row">
+
+        <!-- City -->
+        <div class="form-group half">
+          <input
+            type="text"
+            [(ngModel)]="addressData.city"
+            placeholder="City"
+            class="form-input"
+          />
+        </div>
+
+        <!-- Custom State Dropdown -->
+        <div class="form-group half select-group">
+          <div class="custom-select" [class.open]="isStateDropdownOpen">
+
+            <button
+              type="button"
+              class="form-input form-select"
+              [class.has-value]="addressData.state"
+              (click)="toggleStateDropdown()"
+              aria-label="Select state"
+              [attr.aria-expanded]="isStateDropdownOpen"
+            >
+              <span [class.placeholder]="!addressData.state">
+                {{ addressData.state || 'State' }}
+              </span>
+
+              <span class="select-arrow">
+                {{ isStateDropdownOpen ? '⌃' : '⌄' }}
+              </span>
+            </button>
+
+            <!-- State Options -->
+            <div class="state-options" *ngIf="isStateDropdownOpen">
+              <button
+                type="button"
+                class="state-option"
+                *ngFor="let state of statesList"
+                [class.selected]="addressData.state === state"
+                (click)="selectState(state)"
+              >
+                {{ state }}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Landmark -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="addressData.landmark"
+          placeholder="Nearby Famous Place/Shop/School,etc.(optional)"
+          class="form-input"
+        />
+      </div>
+    </div>
+
+    <!-- Footer Action -->
+    <div class="sidebar-footer">
+      <button
+        type="button"
+        class="save-continue-btn"
+        (click)="saveAddress()"
+      >
+        Save Address and Continue
+      </button>
+    </div>
+
+    <!-- Fetching Location Popup -->
+    <div class="fetching-modal-backdrop" *ngIf="isFetchingLocation">
+      <div class="fetching-popup-card">
+        <div class="m-spinner-logo">
+          <span class="m-anim">m</span>
+        </div>
+        <p>Fetching Your Location...</p>
+      </div>
+    </div>
+
+    <!-- Unable to Fetch Location Toast -->
+    <div class="error-toast-banner" *ngIf="showLocationError">
+      <span class="error-icon">⚠️</span>
+      <span>Unable to fetch accurate location</span>
+    </div>
+
+  </div>
+</div>

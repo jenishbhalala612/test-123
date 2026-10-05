@@ -1,0 +1,435 @@
+@use '../../../styles.scss' as *;
+
+* {
+    font-family: Mier-Book !important;
+}
+
+.products-for-you-cards-content {
+    .cards-wrapper-area {
+        .cards-structure-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+
+            @media (max-width: 1200px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            @media (max-width: 991px) {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 720px;
+                margin: 0 auto;
+                gap: 0;
+            }
+
+
+
+            .product-card {
+                background: #ffffff;
+                border: 1px solid #eaeaea;
+                border-radius: 8px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                position: relative !important;
+
+                .wishlist-img {
+                    max-width: 24px !important;
+                    position: absolute !important;
+                    right: 8px;
+                    top: 8px !important;
+                    z-index: 1;
+                    display: none;
+                    position: relative;
+                    z-index: 1; 
+                    @media (max-width: 991px) {
+                        display: inline-flex;
+                    }
+                }
+
+
+                @media (max-width: 991px) {
+                    border-radius: 0;
+                }
+
+                &:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                }
+
+                .card-img-container {
+                    position: relative;
+                    width: 100%;
+                    height: 220px;
+                    background: rgb(255, 255, 255);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        width: auto;
+                        height: 100%;
+
+                        @media (max-width: 425px) {
+                            height: auto;
+                        }
+                    }
+
+                    .responsive-mall-content {
+                        position: absolute;
+                        bottom: -0.75rem;
+                        height: 1.25rem;
+                        left: 0.5rem;
+                        display: none !important;
+
+                        @media (max-width:991px) {
+                            display: flex !important;
+                        }
+
+                        img {
+                            width: 52px;
+                            height: 20px;
+                            aspect-ratio: auto 52 / 20;
+                        }
+                    }
+
+                    .countdown-badge {
+                        position: absolute;
+                        bottom: -1px;
+                        height: 20px;
+                        left: 0px;
+                        display: inline-flex;
+                        align-items: center;
+                        font-variant-numeric: tabular-nums;
+                        background: rgb(255, 232, 205);
+                        border-radius: 0px 0.25rem 0px 0px;
+                        padding: 0px 6px;
+
+                        @media (max-width:991px) {
+                            bottom: -0.75rem;
+                            height: 20px;
+                            left: 4rem;
+                            border-radius: 0.5rem;
+                        }
+
+                        .time-text {
+                            white-space: nowrap;
+                            height: 20px;
+                            color: rgb(255, 102, 55);
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 12px;
+                            line-height: 16px;
+                            font-family: Mier-Demi !important;
+
+                            @media (max-width:991px) {
+                                // font-family: Mier-Book !important;
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 11px;
+                                line-height: 20px;
+                            }
+                        }
+
+                        .bomb-img {
+                            margin-right: 4px;
+                            width: 12px;
+                            height: 12px;
+                            aspect-ratio: auto 12 / 12;
+                        }
+                    }
+
+                    .extra-images-badge {
+                        background: rgb(255, 255, 255);
+                        position: absolute;
+                        right: 0px;
+                        bottom: 0px;
+                        border-radius: 0.5rem 0px 0px;
+                        padding: 0.125rem 0.25rem;
+                        color: rgb(97, 97, 115);
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 12px !important;
+                        line-height: 16px !important;
+                        font-family: Mier-Demi !important;
+
+                        @media (max-width:991px) {
+                            display: none !important;
+                        }
+                    }
+                }
+
+                .card-details {
+                    // padding: 12px 8px 16px;
+                    // display: flex;
+                    // flex-direction: column;
+                    // gap: 6px;
+                    min-height: 172px;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 8px;
+                    padding: 12px 0px 12px 12px;
+
+                    @media (max-width:991px) {
+                        min-height: 106px !important;
+                    }
+
+                    .respo-greenBase {
+                        color: rgb(3, 141, 99);
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 11px;
+                        line-height: 16px;
+                        display: none;
+                        font-family: Mier-Book !important;
+
+                        @media (max-width:991px) {
+                            display: block;
+                        }
+                    }
+
+                    .title-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 4px;
+
+                        .product-title {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            color: rgb(139, 139, 163);
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 16px;
+                            line-height: 20px;
+                            flex: 1;
+                            font-family: Mier-Book !important;
+
+                            @media (max-width:991px) {
+                                color: rgb(139, 139, 163);
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 10px;
+                                line-height: 12px;
+                            }
+                        }
+
+                        .mall-badge {
+                            @media (max-width:991px) {
+                                display: none !important;
+                            }
+
+                            img {
+                                margin-left: 8px;
+                                width: 52px;
+                                height: 28px;
+                                aspect-ratio: auto 52 / 28;
+                            }
+                        }
+                    }
+
+                    .price-row {
+                        border-radius: 8px;
+                        padding-top: 6px;
+
+                        @media (max-width:991px) {
+                            padding-top: 4px;
+                        }
+
+                        .current-price {
+                            color: rgb(53, 53, 67);
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 24px;
+                            line-height: 32px;
+                            font-family: Mier-Bold !important;
+
+                            @media (max-width:991px) {
+                                font-weight: 600;
+                                font-size: 15px;
+                                line-height: 20px;
+                                font-family: Mier-Demi !important;
+
+                            }
+                        }
+
+                        .original-price {
+                            color: rgb(139, 139, 163);
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 20px;
+                            margin: 0px 8px;
+                            white-space: nowrap;
+                            text-decoration: line-through;
+
+                            @media (max-width:991px) {
+                                font-weight: 500;
+                                font-size: 11px;
+                                line-height: 16px;
+                                font-family: Mier-Book !important;
+                                margin: 0;
+                                padding: 0px 0.25rem;
+                            }
+                        }
+
+                        .discount-text {
+                            color: rgb(3, 141, 99);
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 20px;
+                            font-family: Mier-Demi !important;
+
+                            @media (max-width:991px) {
+                                font-family: Mier-Book !important;
+                                color: rgb(53, 53, 67);
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 11px;
+                                line-height: 16px;
+                            }
+                        }
+                    }
+
+                    .delivery-row {
+                        border-radius: 8px;
+                        padding-top: 12px;
+
+                        @media (max-width:991px) {
+                            display: none !important;
+                        }
+
+                        .delivery-pill {
+                            pointer-events: none;
+                            color: rgb(97, 97, 115);
+                            background: rgb(248, 248, 255);
+                            padding: 4px 8px;
+                            border-radius: 48px;
+
+
+                            .delivery-text {
+                                font-family: Mier-Demi !important;
+                                display: inline-flex;
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 12px;
+                                line-height: 16px;
+                                padding: 0 4px;
+                            }
+
+                            .strike-delivery {
+                                color: rgb(97, 97, 115);
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 12px;
+                                line-height: 16px;
+                                text-decoration: line-through;
+                                padding: 0px 0.25rem;
+                                font-family: Mier-Demi !important;
+
+                            }
+                        }
+                    }
+
+                    .rating-review-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-top: 12px;
+
+                        @media (max-width:991px) {
+                            margin-top: 4px;
+                        }
+
+                        .rating-pill {
+                            display: inline-flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 16px;
+                            padding: 4px 8px;
+                            background: rgb(3, 141, 99);
+                            fill: rgb(255, 255, 255);
+                            cursor: pointer;
+
+                            @media (max-width:991px) {
+                                border-radius: 16px;
+                                padding: 3px 6px;
+                            }
+
+                            span {
+                                font-family: Mier-demi !important;
+                                color: rgb(255, 255, 255);
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 16px;
+                                line-height: 20px;
+
+                                @media (max-width:991px) {
+                                    font-weight: 600;
+                                    font-size: 13px;
+                                    line-height: 16px;
+                                }
+                            }
+
+                            .star {
+                                img {
+                                    fill: rgb(255, 255, 255);
+                                    margin-left: 4px;
+                                }
+                            }
+                        }
+
+                        .reviews-content {
+                            padding: 0px 0.25rem;
+                            color: rgb(139, 139, 163);
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 12px;
+                            line-height: 16px;
+                            text-align: start;
+                            font-family: Mier-Demi !important;
+                        }
+
+                        .reviews-content-desk {
+                            display: inline-block;
+
+                            .reviews-text {
+                                font-family: Mier-Demi !important;
+                            }
+
+                            @media (max-width:991px) {
+                                display: none;
+                            }
+                        }
+
+                        .reviews-content-res {
+                            display: none;
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 11px;
+                            line-height: 16px;
+                            font-family: Mier-Book !important;
+
+                            @media (max-width:991px) {
+                                display: inline-block;
+                            }
+                        }
+
+                        .trusted-badge {
+                            img {
+                                width: 62px;
+                                height: 24px;
+                                aspect-ratio: auto 62 / 24;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

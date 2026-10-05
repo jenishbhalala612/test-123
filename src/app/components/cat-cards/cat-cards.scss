@@ -1,0 +1,60 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles.scss' as *;
+
+// Display only on screens >= 1024px as requested
+.cat-cards-wrapper {
+  background-color: #ffffff;
+  padding: 30px 0;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+// Grid layout to align cards horizontally across the screen
+.cat-cards-main {
+  display: flex;
+  justify-content: center !important;
+  gap: 20px;
+  width: 100%;
+  // overflow-x: auto;
+
+  @media (max-width: 1200px) {
+    gap: 15px;
+  }
+
+  &::-webkit-scrollbar {
+    display: none; // Hide scrollbar for clean look
+  }
+}
+
+// Individual card link wrapper
+.cat-card-item {
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+// Arched shape container (Dome effect like the image)
+.cat-card-arch {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+  }
+}
+
+// Title styling below the arched card
+.cat-card-title {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.2;
+  font-family: Mier-Book !important;
+
+}

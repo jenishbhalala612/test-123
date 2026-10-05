@@ -1,0 +1,156 @@
+@use '../../../styles.scss' as *;
+
+.upto-off-wrapper {
+    position: relative;
+    overflow-x: hidden !important;
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        background-image: url('/assets/images/upto-off/banner.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .upto-off-main {
+        height: 520px;
+        display: grid;
+        grid-template-columns: 30% 70%;
+        gap: 20px;
+
+        @media (max-width: 1600px) {
+            grid-template-columns: 29% 70%;
+            height: 420px;
+        }
+
+        @media (max-width: 1440px) {
+            grid-template-columns: 27% 73%;
+            height: 340px;
+        }
+
+        @media (max-width: 1200px) {
+            height: 300px;
+        }
+
+
+        .download-now-button-content {
+            padding: 0 0 70px 50px;
+            display: flex;
+            align-items: end !important;
+
+            @media (max-width: 1600px) {
+                padding: 0 0 70px 0;
+            }
+
+            @media (max-width: 1440px) {
+                justify-content: center;
+            }
+
+            @media (max-width: 1200px) {
+                padding-bottom: 55px;
+            }
+
+            .download-now-button {
+                padding: 11px 41px 13px;
+                font-size: 36px;
+                background: rgb(255, 255, 255);
+                border-width: medium;
+                border-style: none;
+                border-color: currentcolor;
+                border-image: none;
+                border-radius: 8px;
+                color: rgb(88, 10, 70);
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.2s;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+
+                @media (max-width: 1600px) {
+                    padding: 8px 27px;
+                    font-size: 20px !important;
+                }
+
+                @media (max-width: 1440px) {
+                    padding: 8px 20px;
+                    font-size: 16px !important;
+                }
+
+            }
+        }
+
+        .cards-content {
+            width: 100%;
+            max-width: 1270px;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center;
+            gap: 50px;
+
+            @media (max-width: 1600px) {
+                gap: 40px;
+            }
+
+
+            a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 20px;
+                transition: all 0.5s ease-in-out;
+
+                &:hover {
+                    margin-top: 0;
+                }
+
+                img {
+                    width: 100%;
+                    max-width: 180px;
+
+                    @media (max-width: 1600px) {
+                        max-width: 150px;
+                    }
+
+                    @media (max-width: 1440px) {
+                        max-width: 150px;
+                    }
+
+
+                    @media (max-width: 1200px) {
+                        max-width: 140px;
+                    }
+
+                }
+
+                span {
+                    width: 100%;
+                    color: rgb(88, 10, 70);
+                    padding: 4px 0px 6px;
+                    display: flex;
+                    justify-content: center;
+                    border: 1px solid rgb(255, 157, 0);
+                    background: rgb(255, 245, 229);
+                    font-weight: 600;
+                    font-size: 22px;
+                    border-radius: 14px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 16px;
+                    }
+
+                }
+            }
+        }
+    }
+}

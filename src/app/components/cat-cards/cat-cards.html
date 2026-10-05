@@ -1,0 +1,16 @@
+<section class="cat-cards-wrapper ">
+  <div class="container">
+    <div class="cat-cards-main">
+      @for (card of categoryCards; track card.name) {
+        <a [routerLink]="card.route" class="cat-card-item" [title]="card.name">
+          <!-- Arched background container with image -->
+          <div class="cat-card-arch">
+            <img [src]="card.imageUrl" [alt]="card.name" loading="lazy" />
+          </div>
+          <!-- Category title below the card -->
+          <span class="cat-card-title">{{ card.name }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

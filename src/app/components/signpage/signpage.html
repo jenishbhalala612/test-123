@@ -1,0 +1,51 @@
+<div class="signpage-wrapper">
+  <!-- Top Header Bar (Search input removed as requested) -->
+  <header class="top-header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="brand-logo">meesho</span>
+      </div>
+      <div class="header-links">
+        <a href="#" class="header-link">Become a Supplier</a>
+        <a href="#" class="header-link">Investor Relations</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="auth-card-grid">
+      <!-- Promotional Banner Section -->
+      <div class="promo-banner-section">
+        <img src="/assets/images/header/banner-card.webp" alt="Sarees" />
+      </div>
+
+      <!-- Right/Bottom Form Input Section -->
+      <div class="form-container-section">
+        <div class="auth-header">
+          <h3>{{ pageData.headerTitle }}</h3>
+        </div>
+
+        <div class="input-group-wrapper">
+          <div class="phone-input-container">
+            <span class="country-label">Country</span>
+            <div class="phone-input-box">
+              <span class="country-code">IN +91</span>
+              <input type="tel" maxlength="10" [placeholder]="pageData.phonePlaceholder" [(ngModel)]="mobileNumber" />
+            </div>
+          </div>
+
+          <button class="btn-continue" (click)="onContinue()">
+            {{ pageData.buttonText }}
+          </button>
+        </div>
+
+        <div class="terms-footer-text">
+          {{ pageData.termsTextPrefix }}
+          <a href="#" target="_blank">{{ pageData.termsLinkText }}</a> and
+          <a href="#" target="_blank">{{ pageData.privacyLinkText }}</a>{{ pageData.termsTextSuffix }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-userverifyotp />

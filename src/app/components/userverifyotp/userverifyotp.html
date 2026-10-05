@@ -1,0 +1,60 @@
+<div class="verify-wrapper">
+    <!-- Top Header Bar -->
+    <header class="top-header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="brand-logo">meesho</span>
+            </div>
+            <div class="header-links">
+                <a href="#" class="header-link">Become a Supplier</a>
+                <a href="#" class="header-link">Investor Relations</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-card-grid">
+            <!-- Promotional Banner Section -->
+            <div class="promo-banner-section">
+                <img src="/assets/images/header/banner-card.webp" alt="Sarees" />
+            </div>
+
+            <!-- Form Section with OTP & Countdown Timer -->
+            <div class="form-container-section">
+                <div class="auth-header">
+                    <h3>Enter OTP sent to {{ mobileNumber }}</h3>
+                    <button class="change-number-btn" (click)="changeNumber()">CHANGE NUMBER</button>
+                </div>
+
+                <div class="input-group-wrapper">
+                    <!-- 6-digit OTP Input Boxes -->
+                    <div class="otp-inputs-container">
+                        @for (digit of otpDigits; track $index) {
+                        <input type="text" maxlength="1" class="otp-box" [(ngModel)]="otpDigits[$index]"
+                            (input)="onOtpInput($event, $index)" />
+                        }
+                    </div>
+
+                    <!-- Real 1-Minute Countdown Timer -->
+                    <div class="timer-container">
+                        @if (countdownTimer > 0) {
+                        <span class="timer-text">Resend OTP in {{ countdownTimer }} s</span>
+                        } @else {
+                        <button class="resend-btn" (click)="resendOtp()">Resend OTP</button>
+                        }
+                    </div>
+
+                    <button class="btn-continue" (click)="onVerify()">
+                        Verify
+                    </button>
+                </div>
+
+                <div class="terms-footer-text">
+                    By continuing, you agree to
+                    <a href="#" target="_blank">Meesho's Terms & Conditions</a> and
+                    <a href="#" target="_blank">Privacy Policy</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<aside class="side-bars-wrapper">
+  <div class="container-fluid">
+    <div class="side-bars-main">
+      <ul class="icons-text-content">
+        @for (item of tabsData; track $index) {
+          <li (click)="selectTab($index)" [class.active]="$index === activeIndex">
+            <img
+              [src]="$index === activeIndex && item.URLSec ? item.URLSec : item.URLFirst"
+              [alt]="item.text + '-img'"
+              class="icons-img"
+            />
+            <span>{{ item.text }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</aside>

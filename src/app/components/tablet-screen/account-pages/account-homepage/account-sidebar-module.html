@@ -1,0 +1,35 @@
+<section class="account-wrapper">
+  <div class="container-fluid">
+    <div class="account-main">
+      <app-back-header title="account" fallbackUrl="/account"> </app-back-header>
+      <!-- Profile Banner Section -->
+      <div class="profile-card">
+        <div class="avatar-container">
+          <img [src]="accountData.profile.avatar" alt="User Avatar" />
+        </div>
+        <div class="profile-info">
+          <button class="sign-up-btn" (click)="onAuthAction()">
+            {{ accountData.profile.buttonText }}
+          </button>
+          <p class="profile-subtitle">{{ accountData.profile.subtitle }}</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links List with @for -->
+      <ul class="menu-list">
+        @for (item of accountData.menuItems; track item.label) {
+          <li (click)="onMenuClick(item)" class="menu-item" [class.danger-item]="item.isAction">
+            <div class="menu-left">
+              @if (item.icon) {
+                <span class="icon-wrapper">
+                  <img [src]="item.icon" [alt]="item.label" />
+                </span>
+              }
+              <span class="menu-label">{{ item.label }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

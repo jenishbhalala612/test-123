@@ -1,0 +1,609 @@
+@use '../../../../styles.scss' as *;
+
+$border-color: #e5e7eb;
+$text-dark: #374151;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-payment-container {
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: sans-serif;
+  width: 100%;
+
+  /* Header Styles */
+  .cart-header {
+    background: #ffffff;
+    border-bottom: 1px solid $border-color;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 15px;
+      padding: 8px;
+    }
+
+    .logo {
+      svg {
+        @media (max-width: 768px) {
+          max-width: 120px;
+        }
+      }
+    }
+
+    .checkout-steps-bar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        align-items: start !important;
+      }
+
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
+        .step-circle {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 1.5px solid #d1d5db;
+          color: #9ca3af;
+          font-size: 11px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #fff;
+          font-family: Mier-Book;
+
+          svg {
+            max-width: 12px;
+          }
+        }
+
+        .step-label {
+          color: rgb(53, 53, 67);
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 16px;
+          font-family: Mier-Book !important;
+        }
+
+        &.completed {
+          .step-circle {
+            border-color: rgb(85, 133, 248);
+            color: #fff;
+            background: rgb(85, 133, 248);
+            font-size: 10px;
+          }
+
+          .step-label {
+            color: #374151;
+            font-family: Mier-Book !important;
+          }
+        }
+
+        &.active {
+          .step-circle {
+            border-color: rgb(85, 133, 248);
+            color: rgb(85, 133, 248);
+          }
+
+          .step-label {
+            color: #111827 !important;
+            font-family: Mier-Book !important;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .step-line {
+        width: 35px;
+        height: 2px;
+        background-color: rgb(85, 133, 248);
+
+        &.line-active {
+          background-color: rgb(85, 133, 248);
+        }
+
+        @media (max-width: 768px) {
+          flex: 1;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  /* Payment Layout Grid */
+  .payment-content-wrapper {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    max-width: 1050px;
+    margin: 30px auto;
+    padding: 0 15px;
+    gap: 40px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+
+    .left-payment-section {
+      .section-title {
+        color: rgb(53, 53, 67);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        font-family: Mier-Bold !important;
+        margin-bottom: 16px;
+      }
+
+      .payment-card {
+        background: #ffffff;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        // padding: 16px 20px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.selected {
+          border-color: rgb(159, 32, 137);
+        }
+
+        .payment-card-inner {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 16px;
+
+          .payment-left-info {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+
+            @media (max-width: 768px) {
+              gap: 18px;
+            }
+
+            @media (max-width: 576px) {
+              gap: 8px;
+            }
+
+            .pay-amount {
+              color: rgb(53, 53, 67);
+              font-style: normal;
+              font-weight: 700;
+              font-size: 20px;
+              line-height: 28px;
+              font-family: Mier-Demi !important;
+
+              @media (max-width: 576px) {
+                font-size: 18px;
+                line-height: 1.5;
+              }
+            }
+
+            .pay-method-name {
+              color: rgb(53, 53, 67);
+              font-style: normal;
+              font-weight: 700;
+              font-size: 20px;
+              line-height: 28px;
+              font-family: Mier-Bold !important;
+
+              @media (max-width: 576px) {
+                font-size: 18px;
+                line-height: 1.5;
+
+              }
+            }
+
+            .payment-money-icon {
+              img {
+                max-width: 24px !important;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+
+            .online-price-group {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .strike-amount {
+                color: rgb(97, 97, 115);
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 20px;
+                text-decoration: line-through;
+                font-family: Mier-Demi !important;
+
+              }
+
+              .discount-amount {
+                color: rgb(3, 141, 99);
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 28px;
+                font-family: Mier-Bold !important;
+
+                @media (max-width: 576px) {
+                  font-size: 18px;
+                  line-height: 1.5;
+                }
+              }
+
+              .save-badge {
+                color: rgb(3, 141, 99);
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 16px;
+                font-family: Mier-Demi !important;
+                padding: 2px 4px;
+                background-color: rgb(211, 244, 234) !important;
+              }
+            }
+          }
+
+          .custom-radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+
+            &.checked {
+              border-color: rgb(159, 32, 137);
+              background-color: rgb(159, 32, 137);
+
+              .checkmark {
+                color: #ffffff;
+                font-size: 12px;
+                font-weight: 800;
+                line-height: 1;
+              }
+            }
+          }
+        }
+
+        &.online-card {
+          overflow: hidden !important;
+
+          .payment-card-inner {
+            padding: 20px 16px;
+
+            @media (max-width: 576px) {
+              padding: 10px;
+            }
+
+            .payment-icon-gif {
+              img {
+                width: 100%;
+                height: 100%;
+                max-width: 24px !important;
+              }
+            }
+          }
+
+          .bank-offer-strip {
+            padding: 8px 16px;
+            background-color: rgb(248, 248, 255) !important;
+            color: rgb(97, 97, 115);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .offer-disc {
+              img {
+                max-width: 16px !important;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+          }
+        }
+      }
+
+      .divider {
+        height: 1px;
+        background-color: rgb(206, 206, 222);
+        border-radius: 2px;
+        width: 100%;
+      }
+
+      .reselling-card {
+        background: #ffffff;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 20px 16px;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+
+        @media (max-width: 576px) {
+          padding: 10px;
+        }
+
+        .reselling-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 15px;
+
+          .reselling-title {
+            color: rgb(53, 53, 67);
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 28px;
+
+            @media (max-width: 576px) {
+              font-size: 18px;
+              line-height: 1.5;
+            }
+          }
+
+          .reselling-subtitle {
+            color: rgb(139, 139, 163);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+          }
+
+          .toggle-buttons {
+            display: flex;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+
+            .btn-toggle {
+              background: transparent;
+              border: none;
+              padding: 6px 20px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #4b5563;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: Mier-Book !important;
+
+              &.active-toggle {
+                font-family: Mier-Demi !important;
+                background: rgb(255, 231, 251);
+                color: rgb(85, 133, 248);
+                border: 1px solid rgb(217, 166, 208);
+                color: rgb(159, 32, 137);
+                border-radius: 20px;
+              }
+            }
+          }
+        }
+
+        /* Expanded Section Styles with Floating Focus Effect */
+        .reselling-expanded-content {
+          margin-top: 15px;
+
+          .divider-line {
+            border-top: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+          }
+
+          .cash-collected-title {
+            color: rgb(53, 53, 67);
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            font-family: Mier-Demi !important;
+            margin-bottom: 16px;
+
+            @media (max-width: 576px) {
+              margin-bottom: 0;
+            }
+          }
+
+          .floating-input-group {
+            position: relative;
+            border-bottom: 1.5px solid #d1d5db;
+            padding-top: 18px;
+            padding-bottom: 4px;
+            margin-bottom: 16px;
+            background-color: transparent;
+            transition: border-color 0.2s ease;
+
+            .floating-label {
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              font-size: 15px;
+              color: rgb(139, 139, 163);
+              font-weight: 500;
+              pointer-events: none;
+              transition: all 0.2s ease;
+              font-family: Mier-Demi !important;
+            }
+
+            .margin-input {
+              width: 100%;
+              border: none;
+              outline: none;
+              font-size: 16px;
+              color: #374151;
+              background: transparent;
+              padding: 4px 0;
+              font-size: 14px;
+              line-height: 17px;
+              font-family: Mier-Demi !important;
+            }
+
+            /* Active/Focus state matching your screenshot */
+            &.focused,
+            &.has-value {
+              border-color: rgb(159, 32, 137);
+
+              .floating-label {
+                top: 4px;
+                transform: translateY(0);
+                font-size: 12px;
+                color: rgb(159, 32, 137);
+                font-weight: 600;
+                font-family: Mier-Demi !important;
+              }
+            }
+          }
+
+          .margin-display-text {
+            color: rgb(3, 141, 99);
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            font-family: Mier-Demi !important;
+
+            .margin-val {
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+
+    .right-price-section {
+      max-width: 335px;
+
+      .price-card {
+        background: #ffffff;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 15px;
+
+        .price-heading {
+          color: rgb(53, 53, 67);
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 24px;
+          margin-bottom: 16px;
+        }
+
+        .price-row-item {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+          color: #4b5563;
+          margin-bottom: 20px;
+
+          .dashed-underline {
+            color: rgb(97, 97, 115);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            text-decoration: underline dotted;
+            cursor: pointer;
+            font-family: Mier-Book !important;
+          }
+
+          .price-value {
+            color: rgb(53, 53, 67);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            font-family: Mier-Book !important;
+          }
+
+          &.order-total-row {
+            color: rgb(53, 53, 67);
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            font-family: Mier-Demi;
+          }
+        }
+
+        .price-divider {
+          border-top: 1px solid $border-color;
+          margin: 15px 0;
+        }
+
+        .secure-note {
+          padding: 8px 16px;
+          background-color: rgb(248, 248, 255) !important;
+          color: rgb(53, 53, 67);
+          font-style: normal;
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 16px;
+          font-family: Mier-Demi !important;
+        }
+
+        .btn-continue {
+          color: rgb(255, 255, 255);
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          font-family: Mier-Demi !important;
+          line-height: 24px;
+          cursor: pointer;
+          font-style: normal;
+          text-align: center;
+          letter-spacing: 0.0015em;
+          font-size: 15px;
+          line-height: 20px;
+          border-radius: 4px;
+          background: rgb(159, 32, 137);
+          border-width: medium;
+          border-style: none;
+          border-color: currentcolor;
+          border-image: none;
+          padding: 12px;
+          display: block;
+          width: 100%;
+
+          &:hover {
+            opacity: 0.95;
+          }
+        }
+      }
+    }
+  }
+}

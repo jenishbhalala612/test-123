@@ -1,0 +1,56 @@
+<section class="hero-wrapper">
+  <div class="container">
+    <div class="hero-main">
+      <div class="text-content">
+        <h1>
+          Smart Shopping <br />
+          Trusted by Millions
+        </h1>
+        <div class="">
+          <a href="#" class="shop-now-button">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero-text-wrapper">
+  <div class="container">
+    <div class="hero-text-main">
+      <div class="card-text-content">
+        <img src="https://www.meesho.com/assets/Icons/returns.svg" alt="" />
+        <span class="card-text">7 Days Easy Return</span>
+      </div>
+      <div class="card-text-content">
+        <img src="https://www.meesho.com/assets/Icons/returns.svg" alt="" />
+        <span class="card-text">7 Days Easy Return</span>
+      </div>
+      <div class="card-text-content">
+        <img src="https://www.meesho.com/assets/Icons/returns.svg" alt="" />
+        <span class="card-text">7 Days Easy Return</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="category-strip-wrapper">
+  <div class="category-strip-main">
+    <app-delivery-location />
+
+    <div class="category-slider-wrapper">
+      <div class="category-track">
+        @for (cat of categories; track cat.name) {
+          <a [routerLink]="cat.route" class="category-item" [title]="cat.name">
+            <div class="category-circle">
+              <img [src]="cat.imageUrl" [alt]="cat.name" loading="lazy" />
+            </div>
+
+            <span class="category-name">
+              {{ cat.name }}
+            </span>
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>

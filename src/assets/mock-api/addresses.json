@@ -1,0 +1,14 @@
+[
+  {
+    "id": "addr-1",
+    "name": "jenish Bhalala",
+    "phone": "9106922575",
+    "line1": "A-142, Gajanan Park Society",
+    "line2": "Yogi Chowk",
+    "pincode": "395010",
+    "city": "Surat",
+    "state": "Gujarat",
+    "landmark": "Near Community Hall",
+    "isDefault": true
+  }
+]

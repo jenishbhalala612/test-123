@@ -1,0 +1,11 @@
+[
+  { "id": "all", "name": "All", "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=160&auto=format&fit=crop&q=80" },
+  { "id": "accessories", "name": "Accessories", "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=160&auto=format&fit=crop&q=80" },
+  { "id": "women", "name": "Women Ethnic", "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=160&auto=format&fit=crop&q=80" },
+  { "id": "men", "name": "Men Fashion", "image": "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=160&auto=format&fit=crop&q=80" },
+  { "id": "home", "name": "Home & Kitchen", "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=160&auto=format&fit=crop&q=80" },
+  { "id": "electronics", "name": "Electronics", "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=160&auto=format&fit=crop&q=80" },
+  { "id": "beauty", "name": "Beauty & Health", "image": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=160&auto=format&fit=crop&q=80" },
+  { "id": "jewellery", "name": "Jewellery", "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=160&auto=format&fit=crop&q=80" },
+  { "id": "footwear", "name": "Footwear", "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=160&auto=format&fit=crop&q=80" }
+]

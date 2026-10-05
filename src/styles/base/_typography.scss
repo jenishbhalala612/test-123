@@ -1,0 +1,75 @@
+// ─────────────────────────────────────────────
+// TYPOGRAPHY — _typography.scss
+// ─────────────────────────────────────────────
+@use '../abstracts/variables' as *;
+
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+}
+
+h1 {
+  font-size: $font-size-3xl;
+}
+
+h2 {
+  font-size: $font-size-2xl;
+}
+
+h3 {
+  font-size: $font-size-xl;
+}
+
+h4 {
+  font-size: $font-size-lg;
+}
+
+h5 {
+  font-size: $font-size-md;
+}
+
+h6 {
+  font-size: $font-size-base;
+}
+
+p {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  line-height: $line-height-base;
+}
+
+small {
+  font-size: $font-size-sm;
+}
+
+strong {
+  font-weight: $font-weight-bold;
+}
+
+// Utility text classes
+.text-primary {
+  color: $color-primary !important;
+}
+
+.text-muted {
+  color: $color-text-muted !important;
+}
+
+.text-success {
+  color: $color-success !important;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

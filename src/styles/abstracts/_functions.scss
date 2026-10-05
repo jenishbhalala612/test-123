@@ -1,0 +1,14 @@
+// ─────────────────────────────────────────────
+// MEESHO FUNCTIONS — _functions.scss
+// ─────────────────────────────────────────────
+@use 'sass:math';
+
+// Convert px to rem (base 16px)
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
+}
+
+// Strip unit from a number
+@function strip-unit($number) {
+  @return math.div($number, $number * 0 + 1);
+}

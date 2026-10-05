@@ -1,0 +1,11 @@
+{
+  "395010": { "pincode": "395010", "city": "Surat", "state": "Gujarat", "deliveryDays": 2, "cashOnDelivery": true, "dispatchDays": "0 day" },
+  "395006": { "pincode": "395006", "city": "Surat", "state": "Gujarat", "deliveryDays": 2, "cashOnDelivery": true, "dispatchDays": "0 day" },
+  "380001": { "pincode": "380001", "city": "Ahmedabad", "state": "Gujarat", "deliveryDays": 2, "cashOnDelivery": true, "dispatchDays": "1 day" },
+  "400001": { "pincode": "400001", "city": "Mumbai", "state": "Maharashtra", "deliveryDays": 3, "cashOnDelivery": true, "dispatchDays": "0 day" },
+  "110001": { "pincode": "110001", "city": "New Delhi", "state": "Delhi", "deliveryDays": 3, "cashOnDelivery": true, "dispatchDays": "1 day" },
+  "560001": { "pincode": "560001", "city": "Bengaluru", "state": "Karnataka", "deliveryDays": 3, "cashOnDelivery": true, "dispatchDays": "0 day" },
+  "500001": { "pincode": "500001", "city": "Hyderabad", "state": "Telangana", "deliveryDays": 3, "cashOnDelivery": true, "dispatchDays": "1 day" },
+  "600001": { "pincode": "600001", "city": "Chennai", "state": "Tamil Nadu", "deliveryDays": 4, "cashOnDelivery": true, "dispatchDays": "1 day" },
+  "700001": { "pincode": "700001", "city": "Kolkata", "state": "West Bengal", "deliveryDays": 4, "cashOnDelivery": true, "dispatchDays": "1 day" }
+}

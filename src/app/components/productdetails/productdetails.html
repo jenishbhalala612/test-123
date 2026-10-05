@@ -1,0 +1,565 @@
+<section class="product-details-wrapper">
+  <div class="container">
+    <div class="product-details-main">
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb-nav">
+        @for (item of productData.breadcrumbs; track $index; let last = $last) {
+          <a [href]="item.url" [class.active]="last">{{ item.name }}</a>
+          @if (!last) {
+            <span class="separator">/</span>
+          }
+        }
+      </nav>
+
+      <!-- Main Content Grid -->
+      <div class="main-content-grid">
+        <!-- Left Section: Gallery & CTA Buttons -->
+        <div class="left-gallery-section">
+          <div class="gallery-container">
+            <!-- Thumbnails Column -->
+            <div class="thumbnails-list">
+              @for (img of galleryImages; track $index; let i = $index) {
+                <div
+                  class="thumb-item"
+                  [class.active]="selectedIndex === i"
+                  (click)="selectThumbnail(img, i)"
+                >
+                  <img [src]="img" alt="Thumbnail" />
+                </div>
+              }
+            </div>
+            <!-- Main Preview Image -->
+            <div
+              class="main-preview-box"
+              (touchstart)="onGalleryTouchStart($event)"
+              (touchend)="onGalleryTouchEnd($event)"
+            >
+              <button class="gallery-control previous" type="button" aria-label="Previous image" (click)="showPreviousImage()">‹</button>
+              <img [src]="selectedImage" [alt]="productData.title" />
+              <button class="gallery-control next" type="button" aria-label="Next image" (click)="showNextImage()">›</button>
+              <div class="gallery-pagination" aria-label="Product image pagination">
+                @for (image of galleryImages; track $index; let i = $index) {
+                  <button
+                    type="button"
+                    [class.active]="selectedIndex === i"
+                    [attr.aria-label]="'Show image ' + (i + 1)"
+                    (click)="selectThumbnail(image, i)"
+                  ></button>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons-box">
+            <button class="btn-cart" (click)="addToCart()">
+              <span class="cart-icon">
+                <svg
+                  width="21"
+                  height="20"
+                  fill="#9F2089"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ml="4"
+                  mr="4"
+                  stroke="transparent"
+                  btnType="ghost"
+                  icon="[object Object]"
+                  class="sc-jgmqJh eNHZfc ProductCard__GhostButtonBigStyled-sc-camkhj-2 jjARbD"
+                  iconSize="20"
+                >
+                  <g
+                    clip-path="url(#go-to-cart_svg__a)"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    fill="#333"
+                  >
+                    <path
+                      d="M.75 1.5A.75.75 0 0 1 1.5.75h2.084a1.75 1.75 0 0 1 1.68 1.262L6.05 4.72h12.625a1.75 1.75 0 0 1 1.683 2.23L18.661 12.9a1.75 1.75 0 0 1-1.683 1.27H8.303a1.75 1.75 0 0 1-1.695-1.315l-1.845-7.19-.94-3.236a.25.25 0 0 0-.24-.18H1.5a.75.75 0 0 1-.75-.75Zm5.703 4.719 1.608 6.264a.25.25 0 0 0 .242.188h8.675a.25.25 0 0 0 .24-.181l1.698-5.952a.25.25 0 0 0-.24-.319H6.452ZM9.923 16.238a.5.5 0 0 0-.493.506.5.5 0 0 0 .493.506.5.5 0 0 0 .493-.506.5.5 0 0 0-.493-.506Zm-1.993.506a2 2 0 0 1 1.993-2.006 2 2 0 0 1 1.993 2.006 2 2 0 0 1-1.993 2.006 2 2 0 0 1-1.993-2.006ZM15.72 16.238a.5.5 0 0 0-.493.506.5.5 0 0 0 .493.506.5.5 0 0 0 .493-.506.5.5 0 0 0-.493-.506Zm-1.993.506a2 2 0 0 1 1.993-2.006 2 2 0 0 1 1.993 2.006 2 2 0 0 1-1.993 2.006 2 2 0 0 1-1.993-2.006Z"
+                    ></path>
+                  </g>
+                  <defs>
+                    <clipPath id="go-to-cart_svg__a">
+                      <path fill="#fff" transform="translate(.5)" d="M0 0h20v20H0z"></path>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+              Add to Cart
+            </button>
+            <button class="btn-buynow" (click)="buyNow()">
+              <span class="lightning-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  fill="transparent"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ml="4"
+                  mr="4"
+                  stroke="#ffffff"
+                  btnType="solid"
+                  icon="[object Object]"
+                  class="sc-jgmqJh hxtdMI ProductCard__SolidButtonBigStyled-sc-camkhj-1 bVJwWd"
+                  iconSize="20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.927 3.28A.956.956 0 0 0 2.576 4.63l5.437 5.438-5.3 5.3a.956.956 0 1 0 1.352 1.351l5.43-5.43a1.727 1.727 0 0 0-.032-2.474L3.927 3.28Z"
+                    fill="#fff"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M11.631 3.28A.956.956 0 1 0 10.28 4.63l5.437 5.438-5.3 5.3a.956.956 0 1 0 1.352 1.351l5.43-5.43a1.727 1.727 0 0 0-.032-2.474L11.631 3.28Z"
+                    fill="#fff"
+                  ></path>
+                </svg>
+              </span>
+              Buy Now
+            </button>
+            <button class="btn-cart-mobile" type="button" (click)="openActionDrawer('cart')">
+              <span aria-hidden="true">🛒</span> Add to Cart
+            </button>
+            <button class="btn-buynow-mobile" type="button" (click)="openActionDrawer('buy')">
+              <span aria-hidden="true">»</span> Buy Now
+            </button>
+          </div>
+
+          <!-- Similar Products Section -->
+          @if (productData.similarProducts && productData.similarProducts.length > 0) {
+            <div class="similar-products-section">
+              <h3>{{ productData.similarProducts.length }} Similar Products</h3>
+              <div class="similar-list">
+                @for (sim of productData.similarProducts; track sim.id) {
+                  <a class="similar-card" [routerLink]="['/product', sim.id]" [attr.aria-label]="sim.name || 'Similar Product'">
+                    <img [src]="sim.image" [alt]="sim.name || 'Similar Product'" />
+                  </a>
+                }
+              </div>
+            </div>
+          } @else if (productData.similarProduct) {
+            <div class="similar-products-section">
+              <h3>1 Similar Products</h3>
+              <button
+                class="similar-card"
+                type="button"
+                aria-label="Show similar product images"
+                (click)="selectThumbnail(productData.similarProduct.image, 0)"
+              >
+                <img
+                  [src]="productData.similarProduct.image"
+                  [alt]="productData.similarProduct.name"
+                />
+              </button>
+            </div>
+          }
+        </div>
+
+        <!-- Right Section: Product Details & Reviews -->
+        <div class="right-info-section">
+          <!-- Title & Pricing Box -->
+          <div class="info-card title-price-card">
+            <div class="product-title-row">
+              <h3 class="product-title">{{ productData.title }}</h3>
+              <div class="product-actions">
+                <button type="button" [class.wishlisted]="isWishlisted" [attr.aria-pressed]="isWishlisted" [attr.aria-label]="isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'" (click)="toggleWishlist()">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
+                  <span>{{ isWishlisted ? 'Wishlisted' : 'Wishlist' }}</span>
+                </button>
+                <button type="button" aria-label="Share product">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7 6.6 4.3"/></svg>
+                  <span>Share</span>
+                </button>
+              </div>
+            </div>
+            <div class="price-row">
+              <span class="current-price">₹{{ productData.price }}</span>
+              <span class="original-price">₹{{ productData.originalPrice }}</span>
+              <span class="discount-badge">{{ productData.discount }}% off</span>
+              <!-- <span class="info-icon"></span> -->
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="16"
+                iconSize="20"
+                class="sc-jgmqJh iWNnIY"
+              >
+                <g clip-path="url(#info_svg__a)" fill="#666">
+                  <path
+                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0Zm0 18.44c-4.65 0-8.44-3.79-8.44-8.44 0-4.65 3.79-8.44 8.44-8.44 4.65 0 8.44 3.79 8.44 8.44 0 4.65-3.79 8.44-8.44 8.44Z"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M10 4.825a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm0 3.017a1 1 0 0 0-1 1v5.333a1 1 0 0 0 2 0V8.842a1 1 0 0 0-1-1Z"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="info_svg__a">
+                    <path fill="#fff" d="M0 0h20v20H0z"></path>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="special-offer">₹{{ productData.price }} with 2 Special Offers <span>›</span></div>
+
+            <!-- Deal Timer Badge -->
+            @if (productData.dealActive) {
+              <div class="deal-timer-box">
+                <span class="deal-label">Deal</span>
+                <span class="deal-dot"></span>
+                <span class="timer-text">⏳ {{ countdownText }}</span>
+              </div>
+            }
+
+            <!-- Rating Summary Row -->
+            <div class="rating-review-row">
+              <div class="rating-pill">
+                <span>{{ productData.rating }}</span>
+                <span class="star">★</span>
+              </div>
+              <span class="ratings-count">{{ productData.ratingsCount }} Ratings,</span>
+              <span class="reviews-count">{{ productData.reviewsCount }} Reviews</span>
+            </div>
+
+            <!-- Mall Badges Bar -->
+            <div class="mall-branding-row">
+              <div class="mall-left">
+                <span class="mall-badge">
+                  <img
+                    src="/assets/images/products-for-you/mall-badge-rounded.png"
+                    alt="mall-badge-rounded"
+                  />
+                </span>
+                <span class="verified-text">
+                  <img
+                    src="/assets/images/products-for-you/original-check.png"
+                    alt="original-check"
+                  />
+                  Original Brand</span
+                >
+                <span class="verified-text">
+                  <img
+                    src="/assets/images/products-for-you/original-check.png"
+                    alt="original-check"
+                  />
+                  Authorised Seller</span
+                >
+              </div>
+              <span class="arrow-right">
+                <svg
+                  viewBox="0 0 7 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="7"
+                  height="12"
+                  iconSize="20"
+                  class="sc-jgmqJh fbhtls"
+                >
+                  <path
+                    d="M.31.316a1.079 1.079 0 0 0 0 1.515l4.125 4.17-4.124 4.17a1.079 1.079 0 0 0 0 1.515 1.05 1.05 0 0 0 1.499 0l4.88-4.933a1.079 1.079 0 0 0 0-1.515L1.81.305a1.06 1.06 0 0 0-1.5.01Z"
+                    fill="#666"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Select Size Card -->
+          <div class="info-card size-card">
+            <h3>Select Size</h3>
+            <div class="size-options">
+              @for (size of productData.sizes; track $index) {
+                <button
+                  type="button"
+                  class="size-btn"
+                  [class.active]="selectedSize === size"
+                  (click)="selectedSize = size"
+                >
+                  {{ size }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Product Highlights Card -->
+          <div class="info-card highlights-card">
+            <div class="card-header-flex">
+              <h3>Product Highlights</h3>
+              <button class="copy-btn" type="button" (click)="copyHighlights()">COPY</button>
+            </div>
+            <div class="highlights-grid">
+              @for (item of productData.highlights | keyvalue; track item.key) {
+                <div class="highlight-item">
+                  <span class="hl-label">{{ item.key }}</span>
+                  <span class="hl-value">{{ item.value }}</span>
+                </div>
+              }
+            </div>
+            <button
+              class="additional-details-dropdown"
+              type="button"
+              [attr.aria-expanded]="isAdditionalDetailsOpen"
+              aria-controls="additional-product-details"
+              (click)="isAdditionalDetailsOpen = !isAdditionalDetailsOpen"
+            >
+              <span>Additional Details</span>
+              <svg
+                [class.expanded]="isAdditionalDetailsOpen"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 9l6 6 6-6"
+                  stroke="#555"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="additional-product-details"
+              class="additional-details-content"
+              [class.open]="isAdditionalDetailsOpen"
+              [attr.aria-hidden]="!isAdditionalDetailsOpen"
+            >
+              <div class="additional-details-inner additional-details-table">
+                @for (item of productData.additionalDetails | keyvalue; track item.key) {
+                  <div class="detail-row">
+                    <span class="detail-key">{{ item.key }}</span>
+                    <span class="detail-val">{{ item.value }}</span>
+                  </div>
+                }
+              </div>
+              <span class="more-information" (click)="toggleMoreInfo()">More Information</span>
+              @if (showMoreInfo) {
+                <div class="compliance-info">
+                  <p><strong>Seller / Packer:</strong> {{ productData.seller.name }}</p>
+                  <p><strong>Country of Origin:</strong> {{ productData.additionalDetails['Country of Origin'] || 'India' }}</p>
+                  <p><strong>Compliance:</strong> Direct registered supplier verification on Meesho platform</p>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Sold By Card -->
+          <div class="info-card sold-by-card">
+            <h3>Sold By</h3>
+            <div class="seller-row">
+              <div class="seller-avatar">🏪</div>
+              <div class="seller-info">
+                <h4>{{ productData.seller.name }}</h4>
+                <div class="seller-rating-row">
+                  <span class="rating-pill sm">{{ productData.seller.rating }} ★</span>
+                  <span class="seller-followers">{{ productData.seller.followers }} Followers</span>
+                </div>
+              </div>
+              <button class="view-shop-btn">View Shop</button>
+            </div>
+            <div class="seller-stats-row">
+              <div class="seller-rating-stat">
+                <span class="rating-pill sm">{{ productData.seller.rating }} ★</span>
+                <span>{{ productData.ratingsCount }} Ratings</span>
+              </div>
+              <div class="seller-products-stat">
+                <strong>43</strong>
+                <span>Products</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Ratings & Reviews Card -->
+          <div class="info-card reviews-card">
+            <h3>Product Ratings & Reviews</h3>
+            <div class="reviews-overview-grid">
+              <div class="big-rating-box">
+                <span class="big-score">{{ productData.rating }}</span>
+                <span class="star-big">★</span>
+                <p>{{ productData.ratingsCount }} Ratings,</p>
+                <p>{{ productData.reviewsCount }} Reviews</p>
+              </div>
+              <div class="rating-bars-box">
+                @for (bar of productData.ratingBreakdown; track $index) {
+                  <div class="bar-row">
+                    <span class="bar-label">{{ bar.label }}</span>
+                    <div class="progress-track">
+                      <div
+                        class="progress-fill"
+                        [class.rating-excellent]="bar.label === 'Excellent'"
+                        [class.rating-very-good]="bar.label === 'Very Good'"
+                        [class.rating-good]="bar.label === 'Good'"
+                        [class.rating-average]="bar.label === 'Average'"
+                        [class.rating-poor]="bar.label === 'Poor'"
+                        [style.width.%]="bar.percentage"
+                      ></div>
+                    </div>
+                    <span class="bar-count">{{ bar.count }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- User Reviews List -->
+            <div class="user-reviews-list">
+              @for (rev of productData.userReviews; track $index) {
+                <div class="user-review-item">
+                  <div class="reviewer-header">
+                    <div class="avatar-circle">👤</div>
+                    <div class="reviewer-meta">
+                      <h4>{{ rev.name }}</h4>
+                      <div class="sub-meta">
+                        <span class="rating-pill sm">{{ rev.rating }} ★</span>
+                        <span class="date-text">• Posted on {{ rev.date }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="comment-text">{{ rev.comment }}</p>
+                  @if (rev.images && rev.images.length > 0) {
+                    <div class="review-images-row">
+                      @for (img of rev.images; track $index) {
+                        <img [src]="img" alt="Review photo" />
+                      }
+                    </div>
+                  }
+                  <div class="helpful-row">
+                    <span>👍 Helpful ({{ rev.helpfulCount }})</span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <button class="view-all-reviews-btn">View All Reviews ></button>
+          </div>
+
+            <div class="info-card delivery-date-card">
+              <h3>Check Delivery Date</h3>
+              <label for="delivery-pincode">Enter Delivery Pincode</label>
+              <div class="delivery-pincode-row">
+                <input id="delivery-pincode" type="text" [(ngModel)]="pincodeInput" aria-label="Delivery pincode" />
+                <button type="button" (click)="checkDeliveryPincode()">CHECK</button>
+              </div>
+              @if (pincodeResult) {
+                <p><span aria-hidden="true">▣</span> Estimated Delivery: {{ pincodeResult.deliveryDays }} days ({{ pincodeResult.city }}, {{ pincodeResult.state }})</p>
+                <p><span aria-hidden="true">▦</span> Dispatch: {{ pincodeResult.dispatchDays }} | Cash on Delivery: {{ pincodeResult.cashOnDelivery ? 'Available' : 'Unavailable' }}</p>
+              } @else {
+                <p><span aria-hidden="true">▣</span> Enter Pincode for Estimated Delivery Date</p>
+                <p><span aria-hidden="true">▦</span> Dispatch in 1 day</p>
+              }
+            </div>
+
+            <!-- Trust Badges Footer Bar -->
+            <div class="trust-badges-bar">
+            <div class="trust-item">
+              <span>🏷️</span>
+              <span>Lowest Price</span>
+            </div>
+            <div class="trust-item">
+              <span>💵</span>
+              <span>Cash on Delivery</span>
+            </div>
+            <div class="trust-item">
+              <span>🔄</span>
+              <span>7-day Returns</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+@if (drawerAction) {
+  <div class="action-drawer-backdrop" (click)="closeActionDrawer()">
+    <section
+      class="action-drawer"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="drawerAction === 'cart' ? 'Add to cart options' : 'Buy now options'"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="drawer-header">
+        <h2>{{ drawerAction === 'cart' ? 'ADD TO CART' : 'BUY NOW' }}</h2>
+        <button type="button" aria-label="Close" (click)="closeActionDrawer()">×</button>
+      </header>
+
+      <div class="drawer-size-section">
+        <h3>Select Size</h3>
+        <div class="drawer-size-options">
+          @for (size of productData.sizes; track size) {
+            <button
+              type="button"
+              [class.selected]="selectedSize === size"
+              [attr.aria-pressed]="selectedSize === size"
+              (click)="selectedSize = size"
+            >{{ size }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="drawer-return-section">
+        <div class="drawer-return-heading">
+          <h3>Do you want Easy Returns?</h3>
+          <span>View Details</span>
+        </div>
+        <div class="return-option-list">
+          @for (option of returnOptions; track option.id) {
+            <button
+              type="button"
+              class="return-option-card"
+              [class.selected]="selectedReturnOption === option.id"
+              [attr.aria-pressed]="selectedReturnOption === option.id"
+              (click)="selectedReturnOption = option.id"
+            >
+              <span class="return-option-description">
+                <strong>{{ option.answer }}</strong>
+                <span>{{ option.description }}</span>
+              </span>
+              <strong class="return-option-price">₹{{ productData.price + option.priceAdjustment }}</strong>
+              @if (option.id === 'limited') {
+                <span class="return-option-offer">Special Offer | Save ₹23</span>
+              }
+              @if (selectedReturnOption === option.id) {
+                <span class="return-option-check" aria-hidden="true">✓</span>
+              }
+            </button>
+          }
+        </div>
+      </div>
+
+      <footer class="drawer-footer">
+        @if (drawerAction === 'cart' && isProductInCart()) {
+          <button type="button" class="drawer-primary go-to-cart" (click)="goToCart()">
+            <span aria-hidden="true">🛒</span> Go to Cart
+          </button>
+        } @else {
+          <button type="button" class="drawer-primary" (click)="confirmDrawerAction()">
+            <span aria-hidden="true">{{ drawerAction === 'cart' ? '🛒' : '»' }}</span>
+            {{ drawerAction === 'cart' ? 'Add to Cart' : 'Buy Now' }}
+          </button>
+        }
+      </footer>
+    </section>
+  </div>
+}
+
+@if (showCartToast) {
+  <div class="cart-toast" [class.drawer-toast]="drawerAction" role="status">
+    <span aria-hidden="true">✓</span>
+    Product is added to cart.
+  </div>
+}
+
+@if (showHighlightsToast) {
+  <div class="cart-toast highlights-toast" role="status">
+    <span aria-hidden="true">✓</span>
+    Product highlights copied to clipboard!
+  </div>
+}

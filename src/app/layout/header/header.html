@@ -1,0 +1,337 @@
+<header>
+  <nav class="desktop-header" [class.desktop-header--scrolled]="isScrolled()">
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <div class="logo-content">
+          <a routerLink="/" class="navbar__logo" aria-label="Meesho Home">
+            <img
+              src="/assets/images/logo/meeshoLogo.svg"
+              alt="Meesho Logo"
+              loading="lazy"
+              width="156"
+              height="36"
+              decoding="async"
+            />
+          </a>
+        </div>
+
+        <!-- Search -->
+        <div class="search" [class.search--focused]="showSuggestions()">
+          <form class="search__form" (submit)="$event.preventDefault(); onSearchSubmit()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="search__icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="m21 21l-4.486-4.494M19 10.5a8.5 8.5 0 1 1-17 0a8.5 8.5 0 0 1 17 0Z"
+                stroke-linecap="round"
+              />
+            </svg>
+
+            <input
+              type="search"
+              class="search__input"
+              name="searchQuery"
+              placeholder="Try Saree, Kurti or Search by Product Code"
+              [ngModel]="searchQuery()"
+              (ngModelChange)="searchQuery.set($event)"
+              (focus)="searchFocused.set(true)"
+              aria-label="Search products"
+            />
+          </form>
+
+          <!-- Suggestions -->
+          @if (showSuggestions()) {
+            <div class="search__suggestions">
+              <div class="search__suggestions-label">Popular Searches</div>
+
+              @for (term of filteredSuggestions(); track term) {
+                <button
+                  type="button"
+                  class="search__suggestion-item"
+                  (click)="selectSuggestion(term)"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+
+                  <span>{{ term }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Right Navigation -->
+        <div class="navbar__actions">
+          <!-- Supplier -->
+          <a routerLink="/" class="nav-action--text">
+            <span class="nav-action__label"> Become a Supplier </span>
+          </a>
+
+          <div class="nav-divider"></div>
+
+          <!-- Investor -->
+          <a routerLink="/" class="nav-action nav-action--text">
+            <span class="nav-action__label"> Investor Relations </span>
+          </a>
+
+          <div class="nav-divider"></div>
+
+          <!-- Profile -->
+          <span
+            class="nav-action nav-action--profile"
+            (mouseenter)="onProfileMouseEnter()"
+            (mouseleave)="onProfileMouseLeave()"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              class="person-icon"
+              fill="none"
+            >
+              <g clip-path="url(#user_svg__a)">
+                <path
+                  d="M15.316 13.016c1.512-1.058 2.516-2.797 2.516-4.784A5.835 5.835 0 0 0 12 2.4a5.835 5.835 0 0 0-5.832 5.832 5.79 5.79 0 0 0 2.517 4.784C4.343 14.291 1.2 17.996 1.2 22.37v.022c0 .896.843 1.609 1.825 1.609h17.95c.983 0 1.825-.713 1.825-1.61v-.02c0-4.375-3.143-8.08-7.484-9.354ZM7.853 8.232a4.148 4.148 0 0 1 8.294 0 4.148 4.148 0 0 1-8.294 0Zm13.122 14.083H3.025a.245.245 0 0 1-.14-.032c.054-4.45 4.126-8.057 9.115-8.057 4.99 0 9.05 3.596 9.115 8.057a.245.245 0 0 1-.14.032Z"
+                  fill="#333"
+                />
+              </g>
+
+              <defs>
+                <clipPath id="user_svg__a">
+                  <path fill="#fff" transform="translate(1.2 2.4)" d="M0 0h21.6v21.6H0z" />
+                </clipPath>
+              </defs>
+            </svg>
+
+            <span class="nav-action__label"> Profile </span>
+
+            @if (profileOpen()) {
+              <div class="dropdown dropdown--profile" (click)="$event.stopPropagation()">
+                @if (auth.isLoggedIn) {
+                  <!-- Logged In -->
+                  <div class="dropdown__profile-header">
+                    <div class="dropdown__welcome">Hello, {{ auth.user()?.name }}</div>
+
+                    <div class="dropdown__mobile">+91 {{ auth.user()?.mobile }}</div>
+                  </div>
+
+                  <div class="dropdown__menu">
+                    <a
+                      routerLink="/orders"
+                      class="dropdown__menu-item"
+                      (click)="profileOpen.set(false)"
+                    >
+                      <svg
+                        viewBox="0 0 28 28"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="dropdown__icon"
+                      >
+                        <path fill="#fff" d="M0 0h28v28H0z"></path>
+
+                        <g clip-path="url(#orders_svg__a)" fill="#333">
+                          <path
+                            d="M20.032 10.89c.227 0 .418.19.418.418v10.811c0 .228-.19.418-.418.418H7.89a.422.422 0 0 1-.417-.418V11.308c0-.228.19-.418.418-.418h12.14Zm0-1.473H7.89A1.89 1.89 0 0 0 6 11.308v10.811C6 23.154 6.846 24 7.89 24h12.142a1.89 1.89 0 0 0 1.89-1.89V11.308a1.902 1.902 0 0 0-1.89-1.89Z"
+                          />
+
+                          <path
+                            d="M13.961 5a4.87 4.87 0 0 0-4.873 4.864v2.84h.009c.019.39.333.704.732.704a.736.736 0 0 0 .731-.723V9.864a3.404 3.404 0 0 1 3.401-3.401 3.398 3.398 0 0 1 3.401 3.401v2.812c.01.399.333.722.732.722.389 0 .712-.313.731-.703h.01V9.864A4.875 4.875 0 0 0 13.96 5Z"
+                          />
+                        </g>
+
+                        <defs>
+                          <clipPath id="orders_svg__a">
+                            <path fill="#fff" transform="translate(6 5)" d="M0 0h15.912v19H0z" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      {{ ui.profileLoggedIn.myOrders }}
+                    </a>
+
+                    <div class="dropdown__divider"></div>
+
+                    <button class="dropdown__menu-item dropdown__menu-item--btn" (click)="logout()">
+                      {{ ui.profileLoggedIn.logout }}
+                    </button>
+
+                    <div class="dropdown__divider"></div>
+
+                    <button
+                      class="dropdown__menu-item dropdown__menu-item--btn dropdown__menu-item--danger"
+                      (click)="deleteAccount()"
+                    >
+                      {{ ui.profileLoggedIn.deleteAccount }}
+                    </button>
+                  </div>
+                } @else {
+                  <!-- Guest -->
+                  <div class="dropdown__profile-header">
+                    <div class="dropdown__welcome">
+                      {{ ui.profileGuest.greeting }}
+                    </div>
+
+                    <div class="dropdown__subtitle">
+                      {{ ui.profileGuest.subtitle }}
+                    </div>
+
+                    <a
+                      routerLink="/signup"
+                      class="dropdown__auth-btn"
+                      (click)="profileOpen.set(false)"
+                    >
+                      {{ ui.profileGuest.signUpBtn }}
+                    </a>
+                  </div>
+
+                  <div class="dropdown__menu">
+                    <a
+                      routerLink="/orders"
+                      class="dropdown__menu-item"
+                      (click)="profileOpen.set(false)"
+                    >
+                      <svg
+                        class="dropdown__icon"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                      >
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                      </svg>
+
+                      {{ ui.profileGuest.myOrders }}
+                    </a>
+
+                    <div class="dropdown__divider"></div>
+
+                    <button
+                      class="dropdown__menu-item dropdown__menu-item--btn dropdown__menu-item--danger"
+                      (click)="deleteAccount()"
+                    >
+                      {{ ui.profileGuest.deleteAccount }}
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </span>
+
+          <!-- Cart -->
+          <a routerLink="/cart" class="cart-icon-content nav-action--profile">
+            <div class="cart-icon">
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m4.987 5.469 1.848 7.2a1 1 0 0 0 .968.752h8.675a1 1 0 0 0 .962-.726l1.697-5.952a1 1 0 0 0-.962-1.274H4.987Zm0 0-.943-3.248a1 1 0 0 0-.96-.721H1"
+                  stroke="#666"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+
+                <ellipse
+                  cx="9.421"
+                  cy="16.744"
+                  rx="1.243"
+                  ry="1.256"
+                  stroke="#666"
+                  stroke-width="1.5"
+                />
+
+                <ellipse
+                  cx="15.221"
+                  cy="16.744"
+                  rx="1.243"
+                  ry="1.256"
+                  stroke="#666"
+                  stroke-width="1.5"
+                />
+              </svg>
+
+              @if (cart.hasItems()) {
+                <span class="cart-icon-badge">
+                  {{ cart.count() }}
+                </span>
+              }
+            </div>
+
+            <span class="nav-action__label cart-text"> Cart </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories Navigation -->
+    <div class="sub-nav-content">
+      <nav class="sub-nav" aria-label="Categories Navigation">
+        <div class="sub-nav__container">
+          <ul class="sub-nav__list">
+            @for (cat of categories; track cat.name; let i = $index) {
+              <li
+                class="sub-nav__item"
+                (mouseenter)="activeCategoryIndex.set(i)"
+                (mouseleave)="activeCategoryIndex.set(null)"
+              >
+                <span
+                  routerLink="/"
+                  class="sub-nav__link"
+                  [class.sub-nav__link--active]="activeCategoryIndex() === i"
+                >
+                  {{ cat.name }}
+                </span>
+
+                <!-- Mega Menu -->
+                @if (cat.columns.length > 0 && activeCategoryIndex() === i) {
+                  <div class="mega-menu">
+                    <div class="mega-menu__container">
+                      @for (col of cat.columns; track col.title) {
+                        <div class="mega-menu__col">
+                          <h3 class="mega-menu__title">
+                            {{ col.title }}
+                          </h3>
+
+                          <ul class="mega-menu__links">
+                            @for (item of col.items; track item) {
+                              <li>
+                                <a routerLink="/products" class="mega-menu__item-link">
+                                  {{ item }}
+                                </a>
+                              </li>
+                            }
+                          </ul>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </nav>
+
+  <nav class="tablet-header">
+    <app-tablet-header />
+  </nav>
+</header>

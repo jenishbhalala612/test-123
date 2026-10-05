@@ -1,0 +1,12 @@
+<section class="logo-cards-wrapper">
+  <div class="container">
+    <div class="logo-cards-main">
+      <!-- Loop through the duplicated logo items for continuous infinite marquee -->
+      @for (item of duplicatedLogoImgs; track $index) {
+        <a href="#" class="logo-card-item">
+          <img [src]="item.URl" [alt]="item.name" />
+        </a>
+      }
+    </div>
+  </div>
+</section>

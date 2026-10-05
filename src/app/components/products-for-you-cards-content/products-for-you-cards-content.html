@@ -1,0 +1,93 @@
+<section class="products-for-you-cards-content">
+  <div class="cards-wrapper-area">
+    <div class="cards-structure-content">
+      @for (product of productList; track product.id) {
+        <div class="product-card" [routerLink]="['/product', product.id]">
+          <img src="/assets/images/products-for-you/wishlist.svg" alt="#" class="wishlist-img" />
+          <div class="card-img-container">
+            <img [src]="product.image" [alt]="product.title" loading="lazy" />
+            <!-- Mall responsive img -->
+            <div class="responsive-mall-content">
+              <img
+                src="/assets/images/products-for-you/responsive-mall.png"
+                alt="#"
+                class="responsive-mall-img"
+              />
+            </div>
+
+            <!-- Conditional Live Countdown Timer Badge (Card 1 & 2) -->
+            @if (product.hasCountdown) {
+              <div class="countdown-badge">
+                <span class="bomb-img">
+                  <img src="/assets/images/products-for-you/bomb.png" alt="#" />
+                </span>
+                <span class="time-text">{{ product.countdownText }}</span>
+              </div>
+            }
+
+            <!-- Conditional Extra Images Badge (Card 3 & 4) -->
+            @if (product.extraImagesCount) {
+              <div class="extra-images-badge">
+                {{ product.extraImagesCount }}
+              </div>
+            }
+          </div>
+
+          <div class="card-details">
+            <div class="title-row">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <!-- Conditional Mall Badge -->
+              @if (product.mallBadge) {
+                <span class="mall-badge">
+                  <img src="/assets/images/products-for-you/mall-badge.png" alt="#" />
+                </span>
+              }
+            </div>
+
+            <div class="price-row">
+              <span class="current-price">₹{{ product.price }}</span>
+              <span class="original-price">₹{{ product.originalPrice }}</span>
+              <span class="discount-text">{{ product.discount }}% off</span>
+            </div>
+
+            <!-- Conditional Delivery Row (Card 1) -->
+            @if (product.deliveryText) {
+              <div class="delivery-row">
+                <span class="delivery-pill">
+                  <div class="delivery-text">
+                    {{ product.deliveryText }}
+                  </div>
+                  <span class="strike-delivery">{{ product.originalDeliveryText }}</span>
+                </span>
+              </div>
+            }
+            <span class="respo-greenBase">₹{{ product.price }} with 1 Special Offer</span>
+            <div class="rating-review-row">
+              <div>
+                <div class="rating-pill">
+                  <span>{{ product.rating }}</span>
+                  <span class="star">
+                    <img src="/assets/images/products-for-you/star.svg" alt="#" />
+                  </span>
+                </div>
+
+                <div class="reviews-content reviews-content-desk">
+                  {{ product.reviews }}
+                  <span class="reviews-text"> Reviews </span>
+                </div>
+
+                <div class="reviews-content-res reviews-content">( {{ product.reviews }} )</div>
+              </div>
+              <!-- Conditional Trusted Badge (Card 4) -->
+              @if (product.trustedBadge) {
+                <div class="trusted-badge">
+                  <img src="/assets/images/products-for-you/mtrusted.svg" alt="#" />
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

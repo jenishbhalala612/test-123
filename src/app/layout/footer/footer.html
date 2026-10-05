@@ -1,0 +1,71 @@
+<footer class="footer-wrapper">
+  <div class="container">
+    <div class="footer-content-grid">
+      <!-- Column 1: Brand Info & App Badges -->
+      <div class="footer-brand-col">
+        <h3>{{ footerData.brandTitle }}</h3>
+        <p class="brand-subtitle">
+          {{ footerData.brandSubtitle }} <br />
+          {{ footerData.brandSubtext }}
+        </p>
+
+        <div class="app-badges-box">
+          @for (badge of footerData.appBadges; track $index) {
+            <a [href]="badge.link" target="_blank">
+              <img [src]="badge.image" [alt]="badge.altText" loading="lazy" />
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- Column 2: Useful Links (Careers, Supplier, etc.) -->
+      <div class="footer-links-col footer-links-col-career">
+        <ul>
+          @for (link of footerData.usefulLinks; track $index) {
+            <li>
+              <a [href]="link.url">{{ link.text }}</a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal & Policies -->
+      <div class="footer-links-col footer-links-col-legal">
+        <ul>
+          @for (link of footerData.legalLinks; track $index) {
+            <li>
+              <a [href]="link.url">{{ link.text }}</a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Column 4: Social Media Icons -->
+      <div class="footer-social-col">
+        <h4>{{ footerData.socialTitle }}</h4>
+        <div class="social-icons-box">
+          @for (social of footerData.socialLinks; track $index) {
+            <a [href]="social.url" target="_blank" [title]="social.name">
+              <img [src]="social.icon" [alt]="social.name" />
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- Column 5: Contact Us & Registered Address -->
+      <div class="footer-contact-col">
+        <h4>{{ footerData.contactInfo.title }}</h4>
+        <p class="company-name">{{ footerData.contactInfo.companyName }}</p>
+        <p class="cin-text">{{ footerData.contactInfo.cin }}</p>
+        <p class="address-text" [innerHTML]="footerData.contactInfo.address"></p>
+        <p class="email-text">
+          E-mail address:
+          <a [href]="'mailto:' + footerData.contactInfo.email">{{
+            footerData.contactInfo.email
+          }}</a>
+        </p>
+        <!-- <p class="copyright-text">{{ footerData.contactInfo.copyright }}</p> -->
+      </div>
+    </div>
+  </div>
+</footer>

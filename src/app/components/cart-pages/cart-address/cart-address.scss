@@ -1,0 +1,580 @@
+@use '../../../../styles.scss' as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-address-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  flex: 1;
+  font-family: sans-serif;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+
+  /* Header Styles */
+  .cart-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+      padding: 8px;
+    }
+
+    .logo {
+      svg {
+        @media (max-width: 768px) {
+          max-width: 120px;
+        }
+      }
+    }
+
+    .checkout-steps-bar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      @media (max-width: 768px) {
+        gap: 0;
+        width: 100% !important;
+        align-items: start !important;
+      }
+
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
+        .step-circle {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 1.5px solid #d1d5db;
+          color: #9ca3af;
+          font-size: 11px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #fff;
+
+          @media (max-width: 768px) {
+            height: 16px;
+            width: 16px;
+          }
+
+          svg {
+            max-width: 14px;
+          }
+        }
+
+        .step-label {
+          color: rgb(53, 53, 67);
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 16px;
+          font-family: Mier-Book !important;
+        }
+
+        &.completed {
+          .step-circle {
+            border-color: rgb(85, 133, 248);
+            color: #fff;
+            background: rgb(85, 133, 248);
+            font-size: 10px;
+          }
+
+        }
+
+        &.active {
+          .step-circle {
+            border-color: rgb(85, 133, 248);
+            color: rgb(85, 133, 248);
+          }
+
+          .step-label {
+            color: #111827 !important;
+            font-family: Mier-Book !important;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .step-line {
+        width: 35px;
+        height: 2px;
+        background-color: #d1d5db;
+
+        @media (max-width:768px) {
+          flex: 1;
+          margin-top: 10px;
+        }
+
+        &.line-active {
+          background-color: rgb(85, 133, 248);
+        }
+      }
+    }
+  }
+
+  /* Main Layout Grid */
+  .address-content-wrapper {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 0 15px;
+    gap: 30px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+
+    .left-address-section {
+      .section-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .section-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: #111827;
+        }
+
+        .btn-add-address {
+          background: transparent;
+          border: none;
+          color: rgb(159, 32, 137);
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .address-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.selected {
+          background-color: #f4ecf8;
+          border-color: #d7bde2;
+        }
+
+        .address-card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+
+          .radio-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .address-radio {
+              accent-color: rgb(159, 32, 137);
+              width: 16px;
+              height: 16px;
+              cursor: pointer;
+            }
+
+            .address-name {
+              font-size: 14px;
+              font-weight: 700;
+              color: #111827;
+            }
+          }
+
+          .btn-edit-address {
+            background: transparent;
+            border: none;
+            color: rgb(159, 32, 137);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .address-details {
+          font-size: 13px;
+          color: #4b5563;
+          line-height: 1.4;
+          margin-bottom: 8px;
+          padding-left: 26px;
+        }
+
+        .address-phone {
+          font-size: 13px;
+          color: #374151;
+          font-weight: 600;
+          margin-bottom: 14px;
+          padding-left: 26px;
+        }
+
+        .btn-deliver-here {
+          background: rgb(159, 32, 137);
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 16px;
+          font-size: 13px;
+          font-weight: 700;
+          width: 100%;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+
+    .right-price-section {
+      .price-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 20px;
+
+        .price-heading {
+          font-size: 15px;
+          font-weight: 700;
+          color: #111827;
+          margin-bottom: 15px;
+        }
+
+        .price-row-item {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+          color: #4b5563;
+          margin-bottom: 12px;
+
+          &.order-total-row {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 15px;
+            margin-bottom: 5px;
+          }
+        }
+
+        .price-divider {
+          border: none;
+          border-top: 1px solid #e5e7eb;
+          margin: 15px 0;
+        }
+      }
+    }
+  }
+
+  /* RIGHT SLIDE-IN DRAWER STYLES */
+  .drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+
+  .right-drawer-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 460px;
+    max-width: 100%;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.3s ease-out forwards;
+
+    .drawer-header {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e7eb;
+
+      .drawer-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .drawer-close-btn {
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        color: #374151;
+        cursor: pointer;
+      }
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+
+      .form-section-group {
+        margin-bottom: 24px;
+
+        .form-group-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 12px;
+          flex-wrap: wrap;
+
+          .form-icon {
+            font-size: 15px;
+          }
+
+          .form-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            flex: 1;
+          }
+
+          .btn-use-location {
+            background: transparent;
+            border: 1px solid rgb(159, 32, 137);
+            color: rgb(159, 32, 137);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+          }
+        }
+
+        .input-field-wrapper {
+          margin-bottom: 14px;
+          position: relative;
+
+          .form-input {
+            width: 100%;
+            padding: 10px 0;
+            border: none;
+            border-bottom: 1px solid #d1d5db;
+            font-size: 13px;
+            color: #111827;
+            background: transparent;
+            outline: none;
+
+            &:focus {
+              border-bottom-color: rgb(159, 32, 137);
+            }
+
+            &::placeholder {
+              color: #9ca3af;
+            }
+          }
+
+          /* CUSTOM STATE DROPDOWN STYLING MATCHING REFERENCE */
+          &.custom-dropdown-container {
+            .custom-dropdown-trigger {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 10px 0;
+              border-bottom: 1px solid rgb(159, 32, 137);
+              cursor: pointer;
+              font-size: 13px;
+              color: #111827;
+              font-weight: 600;
+
+              .placeholder-text {
+                color: #9ca3af;
+                font-weight: 400;
+              }
+
+              .arrow-icon {
+                font-size: 11px;
+                color: #374151;
+              }
+            }
+
+            .custom-dropdown-list {
+              position: absolute;
+              bottom: 100%;
+              left: 0;
+              width: 100%;
+              max-height: 220px;
+              overflow-y: auto;
+              background: #ffffff;
+              border: 1px solid #e5e7eb;
+              box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+              border-radius: 4px;
+              z-index: 1010;
+              margin-bottom: 4px;
+
+              /* Scrollbar styling */
+              &::-webkit-scrollbar {
+                width: 6px;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: #9ca3af;
+                border-radius: 3px;
+              }
+
+              .dropdown-option {
+                padding: 12px 14px;
+                font-size: 13px;
+                color: #374151;
+                cursor: pointer;
+                border-bottom: 1px solid #f3f4f6;
+
+                &:hover {
+                  background-color: #f9fafb;
+                  color: rgb(159, 32, 137);
+                }
+
+                &.selected-option {
+                  color: rgb(159, 32, 137);
+                  font-weight: 700;
+                }
+              }
+            }
+          }
+        }
+
+        .city-state-row {
+          display: flex;
+          gap: 15px;
+
+          .half-width {
+            flex: 1;
+          }
+        }
+      }
+    }
+
+    .drawer-footer {
+      padding: 15px 20px;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+
+      .btn-save-address {
+        background: rgb(159, 32, 137);
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        width: 100%;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Deep Responsiveness down to 220px */
+@media (max-width: 280px) {
+  .cart-address-container {
+    .right-drawer-panel {
+      width: 100vw;
+
+      .drawer-header {
+        padding: 10px;
+
+        .drawer-title {
+          font-size: 12px;
+        }
+      }
+
+      .drawer-body {
+        padding: 10px;
+
+        .form-section-group {
+          margin-bottom: 15px;
+
+          .form-group-header {
+            gap: 4px;
+
+            .form-section-title {
+              font-size: 11px;
+            }
+
+            .btn-use-location {
+              font-size: 9px;
+              padding: 2px 6px;
+            }
+          }
+
+          .input-field-wrapper {
+            margin-bottom: 8px;
+
+            .form-input {
+              font-size: 11px;
+              padding: 6px 0;
+            }
+          }
+        }
+      }
+
+      .drawer-footer {
+        padding: 10px;
+
+        .btn-save-address {
+          font-size: 11px;
+          padding: 8px;
+        }
+      }
+    }
+  }
+}

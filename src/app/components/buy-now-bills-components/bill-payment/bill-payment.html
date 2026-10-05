@@ -1,0 +1,167 @@
+<header>
+  <nav class="checkout-header">
+    <div class="checkout-header-inner">
+      <!-- Meesho Logo -->
+      <a href="/" class="meesho-logo">
+        <img src="/assets/images/meesho-logo.png" alt="meesho-logo" />
+      </a>
+
+      <!-- Checkout Progress -->
+      <div class="checkout-content">
+        <div class="checkout-progress">
+          <!-- Review Step -->
+          <div class="progress-step">
+            <div class="check-circle">
+              <img src="/assets/images/arrows/complete.png" alt="completed" />
+            </div>
+          </div>
+
+          <!-- Progress Line -->
+          <div class="progress-line"></div>
+
+          <!-- Payment Step -->
+          <div class="progress-step">
+            <div class="step-circle">
+              <span>2</span>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-text-content">
+          <span class="step-label">Review</span>
+          <span class="step-label">Payment</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="cart-payment-container">
+  <!-- Main Content Layout -->
+  <div class="payment-content-wrapper">
+    <!-- Left Section -->
+    <div class="left-payment-section">
+      <h2 class="section-title">Select Payment Method</h2>
+
+      @for (method of paymentMethods; track method.id) {
+        <div
+          class="payment-card"
+          [class.online-card]="method.id === 'online'"
+          [class.selected]="selectedMethod() === method.id"
+          (click)="selectPaymentMethod(method.id)"
+        >
+          <div class="payment-card-inner">
+            <div class="payment-left-info">
+              @if (method.id === 'online') {
+                <div class="online-price-group">
+                  <span class="strike-amount">₹{{ method.originalPrice }}</span>
+                  <span class="discount-amount">₹{{ method.discountPrice }}</span>
+                  <span class="save-badge">{{ method.saveText }}</span>
+                </div>
+              } @else {
+                <span class="pay-amount">₹{{ method.amount }}</span>
+              }
+              <span class="pay-method-name">{{ method.name }}</span>
+              <span class="payment-icon" [innerHTML]="method.icon"></span>
+            </div>
+            <div class="custom-radio" [class.checked]="selectedMethod() === method.id">
+              @if (selectedMethod() === method.id) {
+                <span class="checkmark">✓</span>
+              }
+            </div>
+          </div>
+          @if (method.bankOffer) {
+            <div class="bank-offer-strip">
+              <span class="offer-dot">🟢</span> {{ method.bankOffer }}
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Reselling Option Section -->
+      <div class="reselling-card">
+        <div class="reselling-header">
+          <div>
+            <h4 class="reselling-title">{{ resellingData.title }}</h4>
+            <p class="reselling-subtitle">{{ resellingData.subtitle }}</p>
+          </div>
+          <div class="toggle-buttons">
+            <button
+              class="btn-toggle"
+              [class.active-toggle]="!isReselling()"
+              (click)="setReselling(false)"
+            >
+              No
+            </button>
+            <button
+              class="btn-toggle"
+              [class.active-toggle]="isReselling()"
+              (click)="setReselling(true)"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+
+        @if (isReselling()) {
+          <div class="reselling-expanded-content">
+            <div class="divider-line"></div>
+            <h3 class="cash-collected-title">{{ resellingData.cashCollectedTitle }}</h3>
+
+            <div
+              class="floating-input-group"
+              [class.focused]="isInputFocused"
+              [class.has-value]="userMargin"
+            >
+              <label class="floating-label">Order Total (₹{{ orderTotal }}) + Your Margin</label>
+              <input
+                type="number"
+                class="margin-input"
+                [(ngModel)]="userMargin"
+                (focus)="isInputFocused = true"
+                (blur)="isInputFocused = false"
+              />
+            </div>
+
+            <div class="margin-display-text">
+              Your Margin: <span class="margin-val">₹{{ userMargin || 0 }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Right Section: Price Details -->
+    <div class="right-price-section">
+      <div class="price-card">
+        <h3 class="price-heading">{{ priceDetailsData.heading }}</h3>
+
+        <div class="price-row-item">
+          <span class="price-label dashed-underline">{{ priceDetailsData.productPriceLabel }}</span>
+          <span class="price-value">+ ₹{{ priceDetailsData.productPrice }}</span>
+        </div>
+
+        <div class="price-row-item discount-row">
+          <span class="price-label">{{ priceDetailsData.discountLabel }}</span>
+          <span class="discount-val">- ₹{{ priceDetailsData.totalDiscount }}</span>
+        </div>
+
+        <div class="price-divider"></div>
+
+        <div class="price-row-item order-total-row">
+          <span class="total-label">Order Total</span>
+          <span class="total-amount">₹{{ orderTotal }}</span>
+        </div>
+
+        @if (priceDetailsData.promoBanner) {
+          <div class="promo-banner">
+            {{ priceDetailsData.promoBanner }}
+          </div>
+        }
+
+        <button class="btn-continue" (click)="onPlaceOrder()">
+          {{ priceDetailsData.buttonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles.scss' as *;
+
+.gold-wrapper {
+    position: relative;
+    padding: 238px 0 70px;
+
+    @media (max-width: 1440px) {
+        padding: 110px 0 40px;
+    }
+
+    @media (max-width: 1200px) {
+        padding: 65px 0 49px;
+    }
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        background-image: url('/assets/images/gold-banner/banner.webp');
+        background-position: top center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .gold-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: end !important;
+        max-width: 1400px;
+        margin: 0 auto;
+
+
+        @media (max-width: 1440px) {
+            max-width: 1024px;
+        }
+
+
+        @media (max-width: 1200px) {
+            max-width: 991px;
+        }
+
+        .shop-button-content {
+            .shop-button {
+                padding: 11px 41px 13px;
+                border-radius: 8px;
+                font-size: 32px;
+                border: 1px solid #ffd182;
+                background: #3f1f11;
+                color: #ffd182;
+                font-weight: 500;
+                transition: all 0.3s ease-in-out;
+                display: inline-block;
+
+                @media (max-width: 1440px) {
+                    padding: 8px 15px;
+                    font-size: 24px;
+                }
+
+                @media (max-width: 1200px) {
+                    font-size: 18px !important;
+                }
+
+                &:hover {
+                    background-color: #6a2c11;
+                }
+            }
+        }
+
+
+        .grid-cards-struture {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+
+            @media (max-width: 1440px) {
+                gap: 40px;
+            }
+
+            img {
+                width: 100%;
+                max-width: 160px;
+
+                @media (max-width: 1200px) {
+                    max-width: 135px;
+                }
+            }
+        }
+    }
+
+
+
+}

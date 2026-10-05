@@ -1,0 +1,81 @@
+<header class="tablet-header">
+  <!-- TOP HEADER -->
+  <div class="header-top">
+    <!-- LEFT -->
+    <div class="header-left">
+      <button type="button" class="menu-btn" (click)="openCategories()">
+        <img [src]="headerData.menu.image" [alt]="headerData.menu.alt" />
+      </button>
+      <app-categories-data
+        [isOpen]="showCategories"
+        (closeMenu)="closeCategories()"
+      ></app-categories-data>
+
+      <a routerLink="/" class="logo">
+        <img [src]="headerData.logo.image" [alt]="headerData.logo.alt" />
+      </a>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="header-actions">
+      <!-- Wishlist -->
+      <button
+        class="action-btn heart-btn"
+        type="button"
+        (click)="goToWishlist()"
+        [attr.aria-label]="headerData.actions.wishlist.alt"
+      >
+        <img [src]="headerData.actions.wishlist.image" [alt]="headerData.actions.wishlist.alt" />
+      </button>
+
+      <!-- Cart -->
+      <button
+        class="action-btn cart-btn"
+        type="button"
+        (click)="goToCart()"
+        [attr.aria-label]="headerData.actions.cart.alt"
+      >
+        <img [src]="headerData.actions.cart.image" [alt]="headerData.actions.cart.alt" />
+        @if (cart.hasItems()) {
+          <span class="cart-count">{{ cart.count() }}</span>
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrapper">
+    <div
+      class="search-box"
+      role="button"
+      tabindex="0"
+      (click)="goToSearch()"
+      (keydown.enter)="goToSearch()"
+      (keydown.space)="goToSearch()"
+    >
+      <!-- Search Icon -->
+      <div class="search-icon-content">
+        <img class="search-icon" [src]="headerData.search.icon" [alt]="headerData.search.iconAlt" />
+      </div>
+
+      <!-- Search Input -->
+      <input
+        class="search-input"
+        type="text"
+        [placeholder]="headerData.search.placeholder"
+        readonly
+        (click)="goToSearch()"
+      />
+
+      <!-- Camera -->
+
+      <div class="camera-icon-content">
+        <img
+          class="camera-icon"
+          [src]="headerData.search.cameraIcon"
+          [alt]="headerData.search.cameraAlt"
+        />
+      </div>
+    </div>
+  </div>
+</header>

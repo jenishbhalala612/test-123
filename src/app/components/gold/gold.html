@@ -1,0 +1,17 @@
+<section class="gold-wrapper">
+  <div class="container">
+    <div class="gold-main">
+      <div class="shop-button-content">
+        <a routerLink="/products" class="shop-button"> Shop Now</a>
+      </div>
+
+      <div class="grid-cards-struture">
+        @for (item of cardImages; track $index) {
+          <a routerLink="/products" class="">
+            <img [src]="item.URL" [alt]="item.alt" />
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>

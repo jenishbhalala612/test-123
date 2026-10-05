@@ -1,0 +1,122 @@
+@if (isOpen) {
+  <!-- ================================= -->
+  <!-- OVERLAY -->
+  <!-- ================================= -->
+
+  <div class="category-overlay" (click)="close()"></div>
+
+  <!-- ================================= -->
+  <!-- DRAWER -->
+  <!-- ================================= -->
+
+  <aside class="categories-drawer">
+    <!-- ================================= -->
+    <!-- HEADER -->
+    <!-- ================================= -->
+
+    <header class="categories-header">
+      <button type="button" class="close-btn" aria-label="Close categories" (click)="close()">
+        <img src="/assets/images/arrows/close.svg" alt="close -icon" />
+      </button>
+
+      <a href="/" class="meesho-logo">
+        <img src="/assets/images/meesho-logo.png" alt="meesho-logo" />
+      </a>
+    </header>
+
+    <!-- ================================= -->
+    <!-- BODY -->
+    <!-- ================================= -->
+
+    <div class="categories-body">
+      <!-- ================================= -->
+      <!-- LEFT SIDEBAR -->
+      <!-- ================================= -->
+
+      <nav class="category-sidebar">
+        @for (category of categories; track category.id) {
+          <button
+            type="button"
+            class="category-sidebar-item"
+            [class.active]="selectedCategory.id === category.id"
+            (click)="selectCategory(category)"
+          >
+            <!-- CATEGORY ICON -->
+
+            <div class="category-icon">
+              <img [src]="category.icon" [alt]="category.name" loading="lazy" />
+            </div>
+
+            <!-- CATEGORY NAME -->
+
+            <span class="category-name">
+              {{ category.name }}
+            </span>
+          </button>
+        }
+      </nav>
+
+      <!-- ================================= -->
+      <!-- RIGHT CONTENT -->
+      <!-- ================================= -->
+
+      <main class="category-content" (scroll)="onContentScroll($event)">
+        @for (category of categories; track category.id) {
+          <!-- ================================= -->
+          <!-- CATEGORY -->
+          <!-- ================================= -->
+
+          <section class="main-category" [id]="'category-' + category.id" #categorySection>
+            <!-- ================================= -->
+            <!-- CATEGORY TITLE -->
+            <!-- ================================= -->
+
+            <div class="category-content-title">
+              <span>
+                {{ category.name | uppercase }}
+              </span>
+
+              <div class="title-line"></div>
+            </div>
+
+            <!-- ================================= -->
+            <!-- CATEGORY SECTIONS -->
+            <!-- ================================= -->
+
+            @for (section of category.sections; track section.title) {
+              <section class="category-section">
+                <!-- SECTION TITLE -->
+
+                <h2 class="section-title">
+                  {{ section.title }}
+                </h2>
+
+                <!-- ================================= -->
+                <!-- PRODUCT GRID -->
+                <!-- ================================= -->
+
+                <div class="category-grid">
+                  @for (item of section.items; track item.name) {
+                    <a href="javascript:void(0)" class="category-card">
+                      <!-- IMAGE -->
+
+                      <div class="category-image">
+                        <img [src]="item.image" [alt]="item.name" loading="lazy" />
+                      </div>
+
+                      <!-- NAME -->
+
+                      <span class="category-item-name">
+                        {{ item.name }}
+                      </span>
+                    </a>
+                  }
+                </div>
+              </section>
+            }
+          </section>
+        }
+      </main>
+    </div>
+  </aside>
+}

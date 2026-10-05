@@ -1,0 +1,675 @@
+<section class="products-for-wrapper">
+  <div class="products-for-main">
+    <h4>Products For You</h4>
+
+    <!-- Mobile & Tablet Filter Bar (Visible at <= 991px) -->
+    <div class="mobile-filter-bar-content">
+      <div class="mobile-filter-bar">
+        <button class="filter-bar-btn" (click)="openPopup('sort')">
+          <img src="/assets/images/aside-filter/sort.svg" alt="" class="sort-img" />
+          <span class="sort-title"> Sort</span>
+        </button>
+        <button class="filter-bar-btn" (click)="openPopup('category')">
+          <span>Category </span>
+          <img src="/assets/images/aside-filter/down.svg" alt="" />
+        </button>
+        <button class="filter-bar-btn" (click)="openPopup('gender')">
+          <span> Gender </span>
+          <img src="/assets/images/aside-filter/down.svg" alt="" />
+        </button>
+        <button class="filter-bar-btn" (click)="openPopup('filters')">
+          <img src="/assets/images/aside-filter/filter.svg" alt="" />
+          <span> Filters </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="products-structure-content">
+      <!-- Left Sidebar Filters Section (Hidden on mobile/tablet <= 991px) -->
+      <aside>
+        <!-- Sort Header Bar -->
+        <div class="sort-bar">
+          <div class="sort-dropdown-box" (click)="toggleDropdown()">
+            <div class="sort-title">
+              <p>Sort by :</p>
+              <span> {{ selectedSort }}</span>
+            </div>
+
+            <svg
+              viewBox="0 0 7 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              iconSize="12"
+              ml="9.5"
+              class="sc-jgmqJh Selectstyled__StyledIcon-sc-j3bykl-6 bpVTQr ivtkcm"
+              [class.open]="isDropdownOpen"
+            >
+              <path
+                d="M.31.316a1.079 1.079 0 0 0 0 1.515l4.125 4.17-4.124 4.17a1.079 1.079 0 0 0 0 1.515 1.05 1.05 0 0 0 1.499 0l4.88-4.933a1.079 1.079 0 0 0 0-1.515L1.81.305a1.06 1.06 0 0 0-1.5.01Z"
+                fill="#666"
+              ></path>
+            </svg>
+          </div>
+
+          <!-- Dropdown List Items -->
+          <div class="sort-dropdown-list" *ngIf="isDropdownOpen">
+            <div
+              class="dropdown-item"
+              *ngFor="let option of sortOptions"
+              [class.active]="option === selectedSort"
+              (click)="selectOption(option)"
+            >
+              {{ option }}
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-filters">
+          <div class="filter-header">
+            <span class="filter-title">FILTERS</span>
+            <span class="product-count">1000+ Products</span>
+          </div>
+
+          <!-- Yahan 'let isLast = $last' add kiya hai -->
+          @for (filter of filterCategories; track $index; let isLast = $last) {
+            <div class="filter-accordion-item" [class.no-border]="isLast">
+              <div class="accordion-toggle" (click)="toggleFilter(filter)">
+                <span>{{ filter.name }}</span>
+                <div class="">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    iconSize="20"
+                    class="sc-jgmqJh bqIFPW arrow-icon"
+                    [class.rotated]="filter.isOpen"
+                  >
+                    <path
+                      d="m9.243 7.31-4.929 4.88a1.051 1.051 0 0 0 0 1.5 1.077 1.077 0 0 0 1.514 0l4.177-4.125 4.167 4.124a1.077 1.077 0 0 0 1.514 0 1.051 1.051 0 0 0 0-1.499l-4.929-4.88a1.077 1.077 0 0 0-1.514 0Z"
+                      fill="#666"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+
+              @if (filter.isOpen) {
+                <div class="accordion-body">
+                  @if (filter.type === 'search') {
+                    <div class="filter-search-box">
+                      <div class="filter-cat-svg-icon">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_1770_1836)">
+                            <path
+                              d="M19.7695 18.6698L16.0096 14.9098C17.3296 13.3298 18.1296 11.2999 18.1296 9.07989C18.1296 4.05995 14.0697 0 9.05978 0C4.0599 0 0 4.05995 0 9.07989C0 14.0998 4.0599 18.1598 9.05978 18.1598C11.2897 18.1598 13.3297 17.3498 14.9096 16.0098L18.6695 19.7698C18.9695 20.0698 19.4695 20.0698 19.7695 19.7698C20.0795 19.4698 20.0795 18.9698 19.7695 18.6698ZM9.05978 16.5998C4.91988 16.5998 1.54996 13.2298 1.54996 9.07989C1.54996 4.92994 4.91988 1.55998 9.05978 1.55998C13.1997 1.55998 16.5696 4.92994 16.5696 9.07989C16.5696 13.2298 13.1997 16.5998 9.05978 16.5998Z"
+                              fill="#8B8BA3"
+                            ></path>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_1770_1836">
+                              <rect width="19.9995" height="19.9998" fill="white"></rect>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <input type="text" placeholder="Search" [(ngModel)]="filter.searchTerm" />
+                    </div>
+                  }
+
+                  @if (filter.type === 'pills') {
+                    <div class="pills-container">
+                      @for (option of filter.options; track $index) {
+                        <button class="pill-btn">{{ option }}</button>
+                      }
+                    </div>
+                  } @else {
+                    <ul class="filter-options-list" [class.scrollable]="filter.showAll">
+                      @for (
+                        option of filter.options
+                          | slice: 0 : (filter.showAll ? filter.options.length : 12);
+                        track $index
+                      ) {
+                        <li>
+                          <label class="checkbox-label">
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              iconSize="20"
+                              class="sc-jgmqJh bqIFPW"
+                            >
+                              <path
+                                d="M16.02 3.56C16.25 3.56 16.44 3.75 16.44 3.98V16.02C16.44 16.25 16.25 16.44 16.02 16.44H3.98C3.75 16.44 3.56 16.25 3.56 16.02V3.98C3.56 3.75 3.75 3.56 3.98 3.56H16.02ZM16.02 2H3.98C2.89 2 2 2.89 2 3.98V16.02C2 17.11 2.89 18 3.98 18H16.02C17.11 18 18 17.11 18 16.02V3.98C18 2.89 17.11 2 16.02 2Z"
+                                fill="#666666"
+                              ></path>
+                            </svg>
+                            <span>{{ option }}</span>
+                          </label>
+                        </li>
+                      }
+                    </ul>
+
+                    @if (filter.options.length > 12) {
+                      <button class="show-more-btn" (click)="toggleShowMore(filter)">
+                        {{
+                          filter.showAll
+                            ? 'Show Less'
+                            : 'Show More (' + (filter.options.length - 12) + '+)'
+                        }}
+                      </button>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </aside>
+
+      <!-- Right Cards Content Section -->
+      <app-products-for-you-cards-content />
+    </div>
+  </div>
+
+  <!-- Bottom Pop-up Modals for Mobile View -->
+  @if (activePopup) {
+    <div class="popup-backdrop" [class.closing]="isClosing" (click)="closePopup()">
+      <div
+        class="bottom-popup-container"
+        [class.closing]="isClosing"
+        [class.sort-popup-container]="activePopup === 'sort'"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- POPUP HEADER -->
+        <div class="popup-header">
+          <h3>{{ popupTitle }}</h3>
+          <button class="close-btn" (click)="closePopup()">✕</button>
+        </div>
+
+        <!-- POPUP BODY CONTENT -->
+        <div class="popup-body" [class.full-filters-body]="activePopup === 'filters'">
+          <!-- 1. SORT POPUP (No Footer) -->
+          @if (activePopup === 'sort') {
+            <div class="sort-options">
+              <!-- Relevance Option -->
+              <label
+                class="sort-item"
+                (click)="selectedSort = 'Relevance'"
+                [class.active]="selectedSort === 'Relevance'"
+              >
+                <span>Relevance</span>
+                @if (selectedSort === 'Relevance') {
+                  <!-- Active SVG (Purple Filled Center) -->
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.56C13.55 3.56 16.44 6.45 16.44 10C16.44 13.55 13.55 16.44 10 16.44C6.45 16.44 3.56 13.55 3.56 10C3.56 6.45 6.45 3.56 10 3.56ZM10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2Z"
+                      fill="#9f2089"
+                    />
+                    <circle cx="10" cy="10" r="4.5" fill="#9f2089" />
+                  </svg>
+                } @else {
+                  <!-- Inactive SVG (Gray Hollow) -->
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.56C13.55 3.56 16.44 6.45 16.44 10C16.44 13.55 13.55 16.44 10 16.44C6.45 16.44 3.56 13.55 3.56 10C3.56 6.45 6.45 3.56 10 3.56ZM10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2Z"
+                      fill="#666666"
+                    />
+                  </svg>
+                }
+              </label>
+
+              <!-- New Arrivals Option -->
+              <label
+                class="sort-item"
+                (click)="selectedSort = 'New Arrivals'"
+                [class.active]="selectedSort === 'New Arrivals'"
+              >
+                <span>New Arrivals</span>
+                @if (selectedSort === 'New Arrivals') {
+                  <!-- Active SVG -->
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.56C13.55 3.56 16.44 6.45 16.44 10C16.44 13.55 13.55 16.44 10 16.44C6.45 16.44 3.56 13.55 3.56 10C3.56 6.45 6.45 3.56 10 3.56ZM10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2Z"
+                      fill="#9f2089"
+                    />
+                    <circle cx="10" cy="10" r="4.5" fill="#9f2089" />
+                  </svg>
+                } @else {
+                  <!-- Inactive SVG -->
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.56C13.55 3.56 16.44 6.45 16.44 10C16.44 13.55 13.55 16.44 10 16.44C6.45 16.44 3.56 13.55 3.56 10C3.56 6.45 6.45 3.56 10 3.56ZM10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2Z"
+                      fill="#666666"
+                    />
+                  </svg>
+                }
+              </label>
+            </div>
+          }
+
+          <!-- 2. CATEGORY POPUP -->
+          @if (activePopup === 'category') {
+            <div class="checkbox-list-popup">
+              @for (cat of categoryOptions; track $index) {
+                <label class="checkbox-label-popup">
+                  <input type="checkbox" />
+                  <span>{{ cat }}</span>
+                </label>
+              }
+            </div>
+          }
+
+          <!-- 3. GENDER POPUP -->
+          @if (activePopup === 'gender') {
+            <div class="gender-grid-popup">
+              @for (gender of genderOptions; track $index) {
+                <div class="gender-card">
+                  <div class="gender-img-circle">
+                    <img [src]="gender.img" [alt]="gender.name" />
+                  </div>
+                  <span>{{ gender.name }}</span>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- 4. MASTER FILTERS POPUP (Two-Column Layout like Meesho) -->
+          @if (activePopup === 'filters') {
+            <div class="master-filters-layout">
+              <!-- Left Navigation Tabs -->
+              <div class="filter-tabs-sidebar">
+                @for (cat of filterCategories; track $index) {
+                  <div
+                    class="filter-tab-item"
+                    [class.active]="selectedFilterTab === cat.name"
+                    (click)="selectedFilterTab = cat.name"
+                  >
+                    <span>{{ cat.name }}</span>
+                  </div>
+                }
+              </div>
+
+              <!-- Right Content Area based on Active Tab -->
+              <div class="filter-tab-content-area">
+                @if (selectedFilterTab === 'Category') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                    <div class="filter-search-box">
+                      <input type="text" placeholder="Search" />
+                    </div>
+                  </div>
+
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Category'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Gender') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Gender'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Color') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Color'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Fabric') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Fabric'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Size') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                    <div class="filter-search-box">
+                      <input type="text" placeholder="Search" />
+                    </div>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Size'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Price') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Price'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Rating') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Rating'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Occassion') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Occassion'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Combo') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Combo'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Discount') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Discount'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+
+                @if (selectedFilterTab === 'Meesho Gold') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Meesho Gold'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Meesho Mall') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Meesho Mall'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Fit/ Shape') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Fit/ Shape'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Material') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Material'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Bottom Length') {
+                  <div class="tab-content-title">
+                    <h4>{{ selectedFilterTab }}</h4>
+                  </div>
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Bottom Length'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Print Or Pattern Type') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Print Or Pattern Type'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Ornamentation') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Ornamentation'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Bottom Pattern Type') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Bottom Pattern Type'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Surface Styling') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Surface Styling'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Back Type') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Back Type'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Loom Type') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Loom Type'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Compatible Models') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Compatible Models'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Warranty Period') {
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Warranty Period'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Waist Rise') {
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Waist Rise'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Bottom Type') {
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Bottom Type'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Dial Design') {
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Dial Design'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Type') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Type'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Type of Skin') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Type of Skin'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Type of Hair') {
+                  <div class="checkbox-list-popup">
+                    @for (opt of getOptionsForTab('Type of Hair'); track $index) {
+                      <label class="checkbox-label-popup">
+                        <input type="checkbox" />
+                        <span>{{ opt }}</span>
+                      </label>
+                    }
+                  </div>
+                }
+                @if (selectedFilterTab === 'Flavour') {
+                  <div class="pills-container-popup">
+                    @for (opt of getOptionsForTab('Flavour'); track $index) {
+                      <button class="pill-btn-popup">{{ opt }}</button>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- POPUP FOOTER (Hidden for Sort popup) -->
+        @if (activePopup !== 'sort') {
+          <div class="popup-footer">
+            <span class="footer-count">1000+ Products</span>
+            <div class="footer-buttons">
+              <button class="clear-btn" (click)="closePopup()">Clear Filters</button>
+              <button class="done-btn" (click)="closePopup()">Done</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</section>

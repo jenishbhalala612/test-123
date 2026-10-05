@@ -1,0 +1,17 @@
+<section class="upto-off-wrapper">
+  <div class="container">
+    <div class="upto-off-main">
+      <div class="download-now-button-content">
+        <a routerLink="/products" class="download-now-button">Download Now</a>
+      </div>
+      <div class="cards-content">
+        @for (item of cardImages; track $index) {
+          <a routerLink="/products" class="">
+            <img [src]="item.URL" [alt]="item.name" />
+            <span>Trending Now</span>
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>

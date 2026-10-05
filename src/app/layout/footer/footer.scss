@@ -1,0 +1,262 @@
+@use '../../../styles.scss' as *;
+
+.footer-wrapper {
+    background-color: #f8f9fa;
+    border-top: 1px solid #eaeaea;
+
+    // padding: 50px 0 40px 0;
+    .footer-content-grid {
+        display: flex !important;
+        justify-content: start;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        align-items: start;
+        max-width: 1328px;
+        line-height: 16px;
+        padding: 60px 0px 40px;
+
+        @media (max-width: 1200px) {
+            padding: 40px 0;
+        }
+
+        @media (max-width: 1024px) {
+            padding: 25px 0;
+        }
+
+        // Column 1 Styling
+        .footer-brand-col {
+            flex: 0 0 31.25%;
+            max-width: 31.25%;
+
+            @media (max-width: 1200px) {
+                flex: 0 0 20.25%;
+                max-width: 25.25%;
+            }
+
+            @media (max-width: 1024px) {
+                max-width: none;
+                flex: none;
+            }
+
+            h3 {
+                color: rgb(53, 53, 67);
+                font-style: normal;
+                font-weight: 500;
+                font-size: 32px;
+                line-height: 40px;
+                font-family: Mier-Book !important;
+                margin-bottom: 16px;
+
+                @media (max-width: 1440px) {
+                    font-size: 26px;
+                }
+
+                @media (max-width: 1200px) {
+                    font-size: 17px;
+                    margin-bottom: 5px;
+                    line-height: 1.5 !important;
+                }
+            }
+
+            .brand-subtitle {
+                color: rgb(97, 97, 115);
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 24px;
+                margin: 0px auto 32px;
+                font-family: Mier-Book !important;
+
+                @media (max-width: 1440px) {
+                    font-size: 15px !important;
+                    margin-bottom: 25px;
+                }
+
+                @media (max-width: 1200px) {
+                    margin-bottom: 10px !important;
+                    line-height: 1.5 !important;
+                }
+            }
+
+            .app-badges-box {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 16px;
+
+                @media (max-width: 1200px) {
+                    gap: 5px;
+                    margin-top: 10px;
+                }
+
+                a {
+                    display: inline-block;
+                    max-width: 191px;
+                    height: 50px;
+
+                    @media (max-width: 1440px) {
+                        max-width: 150px;
+                        height: 40px;
+                    }
+
+                    @media (max-width: 1024px) {
+                        max-width: 120px;
+                        height: 35px;
+                    }
+
+                    @media (max-width: 1024px) {
+                        min-width: 90px;
+                        height: 30px;
+                    }
+
+                    img {
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+
+        .footer-links-col-career {
+            max-width: 12.5%;
+
+            @media (max-width: 1024px) {
+                max-width: none;
+            }
+        }
+
+        // Column 2 & 3 Link List Styling
+        .footer-links-col {
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                white-space: nowrap;
+
+                li {
+                    margin-bottom: 16px;
+
+                    @media (max-width: 1200px) {
+                        margin-bottom: 5px !important;
+                    }
+
+                    a {
+                        color: rgb(97, 97, 115);
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 24px;
+                        font-family: Mier-Demi !important;
+
+                        @media (max-width: 1200px) {
+                            font-size: 15px !important;
+                        }
+
+                        @media (max-width: 576px) {
+                            font-size: 14px;
+                            line-height: 1.5;
+                        }
+
+                        &:hover {
+                            color: #9f2089;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-links-col-legal {
+            flex: 0 0 14.5833%;
+            max-width: 14.5833%;
+            margin-bottom: 40px;
+
+            @media (max-width: 1024px) {
+                max-width: none;
+            }
+        }
+
+        // Column 4 Social Media Styling
+        .footer-social-col {
+            flex: 0 0 16.6667%;
+
+            h4 {
+                color: rgb(53, 53, 67);
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 28px;
+                font-family: Mier-Bold !important;
+                margin-bottom: 16px;
+
+                @media (max-width: 1440px) {
+                    margin-bottom: 10px !important;
+                }
+
+                @media (max-width: 1200px) {
+                    font-size: 20px !important;
+                }
+            }
+
+            .social-icons-box {
+                display: flex;
+                gap: 12px;
+
+                a {
+                    display: inline-flex;
+                    width: 24px;
+                    height: 24px;
+
+                    @media (max-width: 1200px) {
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+            }
+        }
+
+        // Column 5 Contact Info Styling
+        .footer-contact-col {
+            h4 {
+                color: rgb(53, 53, 67);
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 28px;
+                font-family: Mier-Bold !important;
+                margin-bottom: 16px;
+
+                @media (max-width: 1200px) {
+                    margin-bottom: 5px !important;
+                }
+            }
+
+            p {
+                font-size: 12px;
+                color: rgb(97, 97, 115);
+                letter-spacing: 0.5px;
+                line-height: 1.5;
+                font-weight: 500;
+                font-family: Mier-Book !important;
+
+                a {
+                    color: #9f2089;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+
+            }
+        }
+    }
+}

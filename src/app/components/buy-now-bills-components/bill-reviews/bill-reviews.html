@@ -1,0 +1,230 @@
+<!-- Back Navigation Header -->
+<section class="top-bar">
+  <app-back-header title="Review" fallbackUrl="/product/:id"> </app-back-header>
+</section>
+
+<!-- Main Checkout Header -->
+<header>
+  <nav class="checkout-header">
+    <div class="checkout-header-inner">
+      <!-- Meesho Logo -->
+      <a href="/" class="meesho-logo">
+        <img src="/assets/images/meesho-logo.png" alt="meesho-logo" />
+      </a>
+
+      <!-- Checkout Progress -->
+      <div class="checkout-content">
+        <div class="checkout-progress">
+          <div class="progress-step">
+            <div class="step-circle">1</div>
+          </div>
+
+          <div class="progress-line"></div>
+
+          <div class="progress-step">
+            <div class="remain-circle">
+              <span>2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-text-content">
+          <span class="step-label">Review</span>
+          <span class="step-label step-label-remain">Payment</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main Checkout Container -->
+<section class="bill-page-container">
+  <div class="checkout-main-grid">
+    <!-- LEFT SECTION -->
+    <section class="left-section">
+      <div class="card-header-row">
+        <h2>Product Details</h2>
+      </div>
+
+      <!-- Product Details Card -->
+      <div class="card-box">
+        <!-- Delivery Banner -->
+        <div class="delivery-banner">
+          <img src="/assets/images/arrows/truck.png" alt="" />
+
+          <span> Estimated Delivery by {{ estimatedDelivery }} </span>
+        </div>
+
+        <!-- Product Item Details -->
+        <div class="product-item-card">
+          <div class="product-info-wrapper">
+            <div class="product-img-box">
+              <img [src]="product().image" [alt]="product().name" />
+            </div>
+
+            <div class="product-details-text">
+              <div class="mall-badge-row">
+                <span class="mall-tag">
+                  <img src="/assets/images/arrows/mall-badge.webp" class="mall-img" alt="mall" />
+                </span>
+              </div>
+
+              <p class="product-title">
+                {{ product().name }}
+              </p>
+
+              <div class="price-discount-row">
+                <span class="current-price"> ₹{{ product().price }} </span>
+
+                <span class="original-price"> ₹{{ product().originalPrice }} </span>
+
+                <span class="discount-pill"> {{ product().discountPercent }}% Off </span>
+              </div>
+
+              <div class="all-easy-text">All issue easy returns</div>
+
+              <div class="size-qty-row">
+                <span class="size-qty-text"> Size: {{ product().size }} </span>
+
+                <span class="separator"></span>
+
+                <span class="size-qty-text"> Qty: {{ product().quantity }} </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Edit Button -->
+          <button type="button" class="edit-btn" (click)="onEditProduct()">Edit</button>
+
+          <button><img src="/assets/images/arrows/next-step.png" class="edit-btn-img" alt="edit-btn"></button>
+        </div>
+
+        <!-- Sold By -->
+        <div class="sold-by-footer">
+          <span> Sold by: {{ product().soldBy }} </span>
+        </div>
+      </div>
+
+      <!-- Delivery Address Heading -->
+      <div class="title-with-icon">
+        <img src="/assets/images/arrows/location.png" alt="delivery" />
+
+        <h2>Delivery Address</h2>
+      </div>
+
+      <!-- Delivery Address Card -->
+      <div class="address-card-box">
+        <!-- Mobile Delivery Heading -->
+        <div class="mobile-delivery-heading">
+          <img src="/assets/images/arrows/blue-truck.png" alt="delivery" />
+
+          <strong> Delivery by {{ estimatedDelivery }} </strong>
+        </div>
+
+        <div class="address-content-row">
+          <div class="user-address-details">
+            <h3 class="user-name">
+              {{ userAddress.name }}
+            </h3>
+
+            <p class="user-phone">
+              {{ userAddress.phone }}
+            </p>
+
+            <p class="address-text">
+              {{ userAddress.addressLine }}
+            </p>
+          </div>
+
+          <button type="button" class="change-btn" (click)="onChangeAddress()">CHANGE</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="center-divider"></div>
+
+    <!-- RIGHT SECTION -->
+    <section class="right-section">
+      <div class="price-summary-card">
+        <!-- Price Details Accordion Header -->
+        <button
+          type="button"
+          class="summary-title"
+          (click)="togglePriceDetails()"
+          [attr.aria-expanded]="isPriceExpanded"
+        >
+          <span>Price Details</span>
+
+          <span class="price-arrow" [class.expanded]="isPriceExpanded"> </span>
+        </button>
+
+        <!-- Expandable Price Content -->
+        <div class="price-details-content" [class.collapsed]="!isPriceExpanded">
+          <div class="price-row">
+            <span class="label"> Product Price </span>
+
+            <span class="value"> + ₹{{ productPriceTotal() }} </span>
+          </div>
+
+          <div class="price-row discount-row-text">
+            <span class="label label-total"> Total Discounts </span>
+
+            <span class="value value-discount"> - ₹{{ totalDiscounts() }} </span>
+          </div>
+
+          <hr class="summary-divider" />
+
+          <div class="price-row total-row">
+            <span class="order-text"> Order Total </span>
+
+            <span class="order-price"> ₹{{ orderTotal() }} </span>
+          </div>
+
+          <!-- Savings Banner -->
+          <div class="savings-banner">
+            <img src="/assets/images/arrows/discount.webp" alt="Discount" />
+
+            Yay! Your total discount is ₹{{ totalDiscounts() }}
+          </div>
+        </div>
+
+        <!-- Desktop Security Note -->
+        <p class="security-note">Clicking on 'Continue' will not deduct any money</p>
+
+        <!-- Desktop Continue Button -->
+        <button type="button" class="continue-btn" (click)="onProceedToPayment()">Continue</button>
+
+        <!-- Meesho Safe Banner -->
+        <div class="meesho-safe-box">
+          <img src="/assets/images/cart/banner.webp" alt="banner" />
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- Fixed Mobile Footer -->
+<div class="mobile-checkout-footer">
+  <div class="mobile-footer-price">
+    <div class="mobile-price-row">
+      <span class="order-total"> ₹{{ orderTotal() }} </span>
+
+      <span class="total-disc"> ₹{{ totalDiscounts() }} OFF </span>
+    </div>
+
+    <button type="button" (click)="togglePriceDetails()">VIEW PRICE DETAILS</button>
+  </div>
+
+  <!-- Mobile Continue Button -->
+  <button type="button" class="mobile-continue-btn" (click)="onProceedToPayment()">Continue</button>
+</div>
+
+<!-- Edit Sidebar Component -->
+<app-edit-sidebar [(isOpen)]="isSidebarOpen" (updateItem)="onUpdateItem($event)" />
+
+<!-- Select Address Sidebar Component Added Here -->
+<app-select-address 
+  [(isOpen)]="isAddressSidebarOpen" 
+  (addressSelected)="onAddressSelected($event)"
+  (addNewAddressClick)="onAddNewAddressClicked()">
+</app-select-address>

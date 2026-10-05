@@ -1,0 +1,9 @@
+{
+  "codFee": 24,
+  "onlineDiscountLabel": "Extra discount with bank offers",
+  "bankOffers": [
+    "5% Instant Cashback on SBI Credit Cards",
+    "Flat ₹15 Off on UPI transactions",
+    "Extra 10% instant discount on Axis Bank debit cards"
+  ]
+}

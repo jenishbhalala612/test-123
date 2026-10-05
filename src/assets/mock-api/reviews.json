@@ -1,0 +1,73 @@
+{
+  "p101": {
+    "items": [
+      {
+        "id": "r1",
+        "userName": "Rajni Sharma",
+        "avatar": null,
+        "rating": 5.0,
+        "postedOn": "26 Mar 2026",
+        "text": "Bad Packing and Polishing is black at some place",
+        "images": [
+          "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1582845512747-e42001c95638?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200&auto=format&fit=crop&q=80"
+        ],
+        "helpfulCount": 4
+      },
+      {
+        "id": "r2",
+        "userName": "Komal Kumari",
+        "avatar": null,
+        "rating": 5.0,
+        "postedOn": "26 Apr 2026",
+        "text": "Sab kuch mast hai but packing sahi nahi hai gift 🎁 material packing hona chahiye product is very nice 👍👍 but nazar battu 🧿 chipka huwa hai turant hi tut gaya",
+        "images": [
+          "https://images.unsplash.com/photo-1590736969955-71cc94801759?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?w=200&auto=format&fit=crop&q=80"
+        ],
+        "helpfulCount": 12
+      },
+      {
+        "id": "r3",
+        "userName": "Chanda Sharma",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80",
+        "rating": 5.0,
+        "postedOn": "17 June 2026",
+        "text": "Nice product but colour is different dark silver in delivery but very good 👌👌🥰",
+        "images": [
+          "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=200&auto=format&fit=crop&q=80"
+        ],
+        "helpfulCount": 1
+      },
+      {
+        "id": "r4",
+        "userName": "Amit Patel",
+        "avatar": null,
+        "rating": 4.0,
+        "postedOn": "10 Jan 2026",
+        "text": "Sound of bell is very pleasant. Build quality is solid metal. Good value for ₹73.",
+        "images": [],
+        "helpfulCount": 8
+      },
+      {
+        "id": "r5",
+        "userName": "Pooja Verma",
+        "avatar": null,
+        "rating": 4.5,
+        "postedOn": "04 Feb 2026",
+        "text": "Purchased for car keys. Looks very classy and stylish!",
+        "images": [],
+        "helpfulCount": 3
+      }
+    ],
+    "total": 1648,
+    "breakdown": {
+      "excellent": 2978,
+      "veryGood": 985,
+      "good": 410,
+      "average": 110,
+      "poor": 286
+    }
+  }
+}
